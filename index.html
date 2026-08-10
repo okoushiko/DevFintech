@@ -587,12 +587,132 @@ header{opacity:0;animation:fadeIn .8s .05s ease forwards}
   .ringfield span{opacity:.3;transform:scale(2)}
 }
 
+/* ===============================================================
+   PAGE IDENTITY
+   Each page carries its own accent, its own tinted hero band, and
+   a ghost numeral, so switching pages reads instantly even before
+   you've read a word.
+   ===============================================================*/
+:root{--accent:#1B84E8;--accent-2:#8FC9F5;--pnum:"01";--plabel:"Home"}
+body[data-page="curriculum"]  {--accent:#5B5BD6;--accent-2:#A9AAF2;--pnum:"02";--plabel:"Curriculum"}
+body[data-page="chapters"]    {--accent:#0E9488;--accent-2:#7FD8CE;--pnum:"03";--plabel:"Chapters"}
+body[data-page="hackathon"]   {--accent:#12B886;--accent-2:#8FE3C8;--pnum:"04";--plabel:"Compound Hacks"}
+body[data-page="get-involved"]{--accent:#1B84E8;--accent-2:#8FC9F5;--pnum:"05";--plabel:"Get involved"}
+
+/* accent takes over everywhere the brand blue was decorative */
+.eyebrow{color:var(--accent)}
+.accent-rule{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.btn-primary{background:var(--accent);box-shadow:0 8px 22px -12px var(--accent)}
+.btn-primary:hover{background:color-mix(in srgb,var(--accent) 80%,#000814)}
+.btn-ghost:hover{border-color:var(--accent-2)}
+.progress{background:linear-gradient(90deg,var(--accent-2),var(--accent))}
+section::before{background:linear-gradient(90deg,transparent,var(--accent),var(--accent-2),transparent);opacity:.42}
+.card::before,.ledger-grid > div::before{background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+.step::before,.course::before,details::before,.pullquote::before{background:linear-gradient(180deg,var(--accent),var(--accent-2))}
+.step .num,.course .cnum,.crumb a,.card a.more,.srow .t,.ledger-grid > div:hover .n,.curve-delta{color:var(--accent)}
+.card:hover{border-color:var(--accent-2)}
+.card:hover .ic{background:var(--accent);border-color:var(--accent)}
+.card .ic svg,.checklist svg{stroke:var(--accent)}
+.checklist li:hover svg{background:var(--accent);border-color:var(--accent);stroke:#fff}
+.tick,.badge{background:var(--accent)}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,#fff)}
+.opt:hover{border-color:var(--accent-2)}
+.wiz input:focus,.wiz select:focus,.wiz textarea:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 16%,transparent)}
+.curve-live,.curve-dot{stroke:var(--accent)}
+.curve-dot{fill:var(--accent)}
+.netfield line{stroke:var(--accent)}
+.netfield circle{fill:var(--accent)}
+.diamondfield g{stroke:var(--accent);opacity:.5}
+.ringfield span{border-color:var(--accent);opacity:.55}
+.gridfield::after{background:linear-gradient(90deg,transparent,var(--accent-2),transparent)}
+.rail .box a,.card a.more{color:var(--accent)}
+:focus-visible{outline-color:var(--accent)}
+
+/* the active page reads as a filled pill, not a hairline */
+nav.links a.on{
+  color:#fff;background:var(--accent);
+  padding:.34rem .82rem;border-radius:100px;margin-block:-.34rem;
+  transition:background .25s ease;
+}
+nav.links a.on::after{display:none}
+@media(max-width:940px){
+  header.open nav.links a.on{background:transparent;color:var(--accent);padding:.85rem 0;margin:0}
+}
+
+/* each page opens over a wash of its own colour */
+.phero{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 11%,transparent),transparent 88%)}
+.phero .crumb::after{
+  content:" · " var(--pnum) " of 05";
+  color:var(--slate);
+}
+
+/* ghost numeral, sitting behind the headline */
+.phero::after{
+  content:var(--pnum);
+  position:absolute;top:-.22em;right:2vw;z-index:0;pointer-events:none;
+  font-family:var(--display);font-weight:800;font-size:clamp(11rem,26vw,20rem);
+  line-height:1;letter-spacing:-.06em;
+  color:var(--accent);opacity:.07;
+  -webkit-user-select:none;user-select:none;
+}
+@media(max-width:940px){.phero::after{font-size:clamp(9rem,34vw,14rem);right:-2vw;opacity:.06}}
+
+/* hero split, for the pages that carry a module beside the headline */
+.phero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,64px);align-items:end}
+@media(max-width:940px){.phero-grid{grid-template-columns:1fr;gap:32px;align-items:start}}
+.phero-mod{
+  background:rgba(255,255,255,.78);backdrop-filter:blur(12px);
+  border:1px solid var(--line);border-radius:18px;padding:24px 26px 26px;
+  box-shadow:0 40px 80px -60px rgba(11,31,51,.55);
+}
+.phero-mod .modh{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);margin-bottom:1rem}
+
+/* curriculum: a numbered index of the nine courses */
+.idx{display:grid;gap:.42rem}
+.idx div{display:flex;gap:.7rem;font-size:.9rem;align-items:baseline;transition:color .2s ease,transform .2s ease}
+.idx div:hover{color:var(--accent);transform:translateX(3px)}
+.idx b{font-family:var(--mono);font-size:.7rem;color:var(--accent);font-weight:500;min-width:1.4rem}
+
+/* chapters: a compact stat trio */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.trio > div{text-align:left}
+.trio .n{font-family:var(--display);font-weight:800;font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-.035em;line-height:1;color:var(--accent)}
+.trio .l{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);margin-top:.5rem;line-height:1.35}
+
+/* hackathon: dark band, mint accent, live countdown */
+body[data-page="hackathon"] .phero{
+  background:linear-gradient(150deg,#07131F 0%,#0C2A3F 52%,#0A3A44 100%);
+  color:#EAF7F2;margin-bottom:0;
+}
+body[data-page="hackathon"] .phero::after{color:#12B886;opacity:.13}
+body[data-page="hackathon"] .phero .lede{color:rgba(224,244,238,.76)}
+body[data-page="hackathon"] .phero .crumb{color:rgba(224,244,238,.5)}
+body[data-page="hackathon"] .phero .crumb::after{color:rgba(224,244,238,.5)}
+body[data-page="hackathon"] .phero .crumb a{color:var(--accent-2)}
+body[data-page="hackathon"] .phero .chip{background:rgba(255,255,255,.06);border-color:rgba(234,247,242,.22);color:#EAF7F2}
+body[data-page="hackathon"] .phero .btn-ghost{background:transparent;color:#EAF7F2;border-color:rgba(234,247,242,.3)}
+body[data-page="hackathon"] .phero .btn-ghost:hover{background:rgba(255,255,255,.08);border-color:var(--accent-2)}
+body[data-page="hackathon"] .phero-mod{background:rgba(255,255,255,.05);border-color:rgba(234,247,242,.18)}
+body[data-page="hackathon"] .phero-mod .modh{color:rgba(224,244,238,.55)}
+.clock{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center}
+.clock > div{background:rgba(255,255,255,.05);border:1px solid rgba(234,247,242,.14);border-radius:12px;padding:14px 6px}
+.clock .n{font-family:var(--display);font-weight:800;font-size:clamp(1.3rem,3.4vw,1.9rem);letter-spacing:-.03em;line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+.clock .l{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(224,244,238,.5);margin-top:.5rem}
+
+/* get-involved: the form is the page, so it starts higher up */
+body[data-page="get-involved"] .phero{padding-bottom:clamp(18px,2vw,26px)}
+
+/* page transition, played by the single-file router */
+@keyframes pageIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.page-swap{animation:pageIn .42s cubic-bezier(.2,.75,.25,1)}
+@media(prefers-reduced-motion:reduce){.page-swap{animation:none}}
+
 /* ---------- single-file router ---------- */
 [hidden]{display:none!important}
 
 </style>
 </head>
-<body>
+<body data-page="home">
 
 <header id="hdr">
   <div class="shell bar">
@@ -836,16 +956,32 @@ header{opacity:0;animation:fadeIn .8s .05s ease forwards}
 <!-- ================= PAGE HERO ================= -->
 <div class="phero">
   <div class="orb orb-a"></div>
-  <div class="shell">
-    <p class="crumb"><a href="#/home">Home</a> / Curriculum</p>
-    <h1>Nine courses. One through-line.</h1>
-    <div class="accent-rule"></div>
-    <p class="lede load l1" style="margin-top:1.4rem">Every course answers a question a student will actually face: where did my money go, why does the bank want this, is this loan a trap, should I be investing yet. Chapters teach them in any order, though most start with personal finance and work outward.</p>
-    <div class="phero-facts load l2">
-      <span class="chip">3 tracks</span>
-      <span class="chip">9 courses</span>
-      <span class="chip">Slides + lesson plans provided</span>
-      <span class="chip">Free</span>
+  <div class="shell phero-grid">
+    <div>
+      <p class="crumb"><a href="#/home">Home</a> / Curriculum</p>
+      <h1>Nine courses. One through-line.</h1>
+      <div class="accent-rule"></div>
+      <p class="lede load l1" style="margin-top:1.4rem">Every course answers a question a student will actually face: where did my money go, why does the bank want this, is this loan a trap, should I be investing yet. Chapters teach them in any order, though most start with personal finance and work outward.</p>
+      <div class="phero-facts load l2">
+        <span class="chip">3 tracks</span>
+        <span class="chip">9 courses</span>
+        <span class="chip">Slides + lesson plans provided</span>
+        <span class="chip">Free</span>
+      </div>
+    </div>
+    <div class="phero-mod load l2">
+      <div class="modh">The catalog</div>
+      <div class="idx">
+        <div><b>01</b> Personal Finance</div>
+        <div><b>02</b> Behavioral Finance</div>
+        <div><b>03</b> Banking</div>
+        <div><b>04</b> Investing</div>
+        <div><b>05</b> Coding</div>
+        <div><b>06</b> Economics</div>
+        <div><b>07</b> Digital Currencies</div>
+        <div><b>08</b> Loans</div>
+        <div><b>09</b> Debt</div>
+      </div>
     </div>
   </div>
 </div>
@@ -1077,16 +1213,25 @@ header{opacity:0;animation:fadeIn .8s .05s ease forwards}
 <!-- ================= PAGE HERO ================= -->
 <div class="phero">
   <div class="orb orb-a"></div>
-  <div class="shell">
-    <p class="crumb"><a href="#/home">Home</a> / Chapters</p>
-    <h1>A chapter is just a club with a syllabus.</h1>
-    <div class="accent-rule"></div>
-    <p class="lede load l1" style="margin-top:1.4rem">We don't run one classroom, we run more than sixty. Each one is a club at a school, led by students there, teaching our material to their own members. This page is the whole thing: what you're signing up for, what we hand you, and what we ask in return.</p>
-    <div class="phero-facts load l2">
-      <span class="chip">60+ chapters</span>
-      <span class="chip">1,500+ students taught</span>
-      <span class="chip">Rolling applications</span>
-      <span class="chip">Reply in about a week</span>
+  <div class="shell phero-grid">
+    <div>
+      <p class="crumb"><a href="#/home">Home</a> / Chapters</p>
+      <h1>A chapter is just a club with a syllabus.</h1>
+      <div class="accent-rule"></div>
+      <p class="lede load l1" style="margin-top:1.4rem">We don't run one classroom, we run more than sixty. Each one is a club at a school, led by students there, teaching our material to their own members. This page is the whole thing: what you're signing up for, what we hand you, and what we ask in return.</p>
+      <div class="phero-facts load l2">
+        <span class="chip">Rolling applications</span>
+        <span class="chip">Reply in about a week</span>
+      </div>
+    </div>
+    <div class="phero-mod load l2">
+      <div class="modh">The network today</div>
+      <div class="trio">
+        <div><div class="n" data-count="60" data-suffix="+">0</div><div class="l">Chapters</div></div>
+        <div><div class="n" data-count="1500" data-suffix="+">0</div><div class="l">Students taught</div></div>
+        <div><div class="n">~2h</div><div class="l">A week to lead</div></div>
+      </div>
+      <p class="muted" style="font-size:.86rem;margin-top:1.2rem">Every one of them started with a student filling out a form, exactly like the one at the end of this page.</p>
     </div>
   </div>
 </div>
@@ -1295,20 +1440,31 @@ header{opacity:0;animation:fadeIn .8s .05s ease forwards}
 <!-- ================= PAGE HERO ================= -->
 <div class="phero">
   <div class="orb orb-a"></div>
-  <div class="shell">
-    <p class="crumb"><a href="#/home">Home</a> / Compound Hacks</p>
-    <h1>Build something that touches money. In one day.</h1>
-    <div class="accent-rule"></div>
-    <p class="lede load l1" style="margin-top:1.4rem">Compound Hacks is our first hackathon: a free, one-day, in-person event for Bay Area high schoolers. Show up at 8, form a team, build, and pitch to judges by 20:00. You do not need to know how to code to be useful on a team.</p>
-    <div class="hero-cta load l2">
-      <a class="btn btn-primary" href="https://compoundhacks.dev/" target="_blank" rel="noopener">Register at compoundhacks.dev <span class="arw">→</span></a>
-      <a class="btn btn-ghost" href="#/hackathon:schedule">See the schedule</a>
+  <div class="shell phero-grid">
+    <div>
+      <p class="crumb"><a href="#/home">Home</a> / Compound Hacks</p>
+      <h1>Build something that touches money. In one day.</h1>
+      <div class="accent-rule"></div>
+      <p class="lede load l1" style="margin-top:1.4rem">Compound Hacks is our first hackathon: a free, one-day, in-person event for Bay Area high schoolers. Show up at 8, form a team, build, and pitch to judges by 20:00. You do not need to know how to code to be useful on a team.</p>
+      <div class="hero-cta load l2">
+        <a class="btn btn-primary" href="https://compoundhacks.dev/" target="_blank" rel="noopener">Register at compoundhacks.dev <span class="arw">→</span></a>
+        <a class="btn btn-ghost" href="#/hackathon:schedule">See the schedule</a>
+      </div>
+      <div class="phero-facts load l3">
+        <span class="chip">December 2, 2026</span>
+        <span class="chip">Bay Area</span>
+        <span class="chip">Free entry</span>
+        <span class="chip">Food included</span>
+      </div>
     </div>
-    <div class="phero-facts load l3">
-      <span class="chip">December 2, 2026</span>
-      <span class="chip">Bay Area</span>
-      <span class="chip">Free entry</span>
-      <span class="chip">Food included</span>
+    <div class="phero-mod load l2">
+      <div class="modh">Doors open in</div>
+      <div class="clock" id="clock" data-deadline="2026-12-02T08:00:00-08:00">
+        <div><div class="n" data-unit="d">—</div><div class="l">Days</div></div>
+        <div><div class="n" data-unit="h">—</div><div class="l">Hours</div></div>
+        <div><div class="n" data-unit="m">—</div><div class="l">Minutes</div></div>
+        <div><div class="n" data-unit="s">—</div><div class="l">Seconds</div></div>
+      </div>
     </div>
   </div>
 </div>
@@ -1715,6 +1871,26 @@ document.querySelectorAll('form.sub').forEach(f =>
   })
 );
 
+/* ---------- Compound Hacks countdown ---------- */
+const clock = document.getElementById('clock');
+if (clock) {
+  const end = new Date(clock.dataset.deadline).getTime();
+  const cell = u => clock.querySelector(`[data-unit="${u}"]`);
+  const pad = n => String(n).padStart(2, '0');
+  (function tickClock() {
+    let left = Math.max(0, end - Date.now());
+    const d = Math.floor(left / 864e5); left -= d * 864e5;
+    const h = Math.floor(left / 36e5);  left -= h * 36e5;
+    const m = Math.floor(left / 6e4);   left -= m * 6e4;
+    const s = Math.floor(left / 1e3);
+    cell('d').textContent = d;
+    cell('h').textContent = pad(h);
+    cell('m').textContent = pad(m);
+    cell('s').textContent = pad(s);
+    setTimeout(tickClock, 1000);
+  })();
+}
+
 
 /* ---------- hash router -------------------------------------------
    Routes look like #/curriculum, or #/curriculum:behavioral to land
@@ -1729,6 +1905,14 @@ function show(route, anchor, animate) {
   if (!ROUTES.includes(route)) route = 'home';
 
   pages.forEach(p => p.hidden = (p.dataset.route !== route));
+  document.body.dataset.page = route;
+
+  const shown = document.querySelector(`.page[data-route="${route}"]`);
+  if (animate) {
+    shown.classList.remove('page-swap');
+    void shown.offsetWidth;
+    shown.classList.add('page-swap');
+  }
   navA.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#/' + route));
   document.title = document.querySelector(`.page[data-route="${route}"]`).dataset.title;
 
