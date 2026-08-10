@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-page="home">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -594,10 +594,10 @@ header{opacity:0;animation:fadeIn .8s .05s ease forwards}
    you've read a word.
    ===============================================================*/
 :root{--accent:#1B84E8;--accent-2:#8FC9F5;--pnum:"01";--plabel:"Home"}
-body[data-page="curriculum"]  {--accent:#5B5BD6;--accent-2:#A9AAF2;--pnum:"02";--plabel:"Curriculum"}
-body[data-page="chapters"]    {--accent:#0E9488;--accent-2:#7FD8CE;--pnum:"03";--plabel:"Chapters"}
-body[data-page="hackathon"]   {--accent:#12B886;--accent-2:#8FE3C8;--pnum:"04";--plabel:"Compound Hacks"}
-body[data-page="get-involved"]{--accent:#1B84E8;--accent-2:#8FC9F5;--pnum:"05";--plabel:"Get involved"}
+body[data-page="curriculum"]  {--accent:#0E6BD6;--accent-2:#7FB6EE;--pnum:"02";--plabel:"Curriculum"}
+body[data-page="chapters"]    {--accent:#0A4FAF;--accent-2:#7CA5DF;--pnum:"03";--plabel:"Chapters"}
+body[data-page="hackathon"]   {--accent:#2BA3E8;--accent-2:#A4DBF7;--pnum:"04";--plabel:"Compound Hacks"}
+body[data-page="get-involved"]{--accent:#0B3A85;--accent-2:#8AAAD6;--pnum:"05";--plabel:"Get involved"}
 
 /* accent takes over everywhere the brand blue was decorative */
 .eyebrow{color:var(--accent)}
@@ -628,15 +628,28 @@ section::before{background:linear-gradient(90deg,transparent,var(--accent),var(-
 .rail .box a,.card a.more{color:var(--accent)}
 :focus-visible{outline-color:var(--accent)}
 
-/* the active page reads as a filled pill, not a hairline */
+/* the active page reads as a tinted pill with a leading dot, quiet enough
+   to sit beside the other links instead of shouting over them */
 nav.links a.on{
-  color:#fff;background:var(--accent);
-  padding:.34rem .82rem;border-radius:100px;margin-block:-.34rem;
-  transition:background .25s ease;
+  display:inline-flex;align-items:center;gap:.44rem;
+  color:var(--accent);
+  background:color-mix(in srgb,var(--accent) 9%,#fff);
+  border:1px solid color-mix(in srgb,var(--accent) 26%,#fff);
+  padding:.32rem .8rem .32rem .66rem;
+  border-radius:100px;
+  margin-block:-.42rem;
+}
+nav.links a.on::before{
+  content:"";width:6px;height:6px;flex:none;
+  border-radius:50%;background:var(--accent);
 }
 nav.links a.on::after{display:none}
+nav.links a:focus-visible{outline-offset:2px;border-radius:100px}
 @media(max-width:940px){
-  header.open nav.links a.on{background:transparent;color:var(--accent);padding:.85rem 0;margin:0}
+  header.open nav.links a.on{
+    background:transparent;border:0;border-bottom:1px solid var(--line);
+    padding:.85rem 0;margin:0;border-radius:0;
+  }
 }
 
 /* each page opens over a wash of its own colour */
@@ -679,25 +692,15 @@ nav.links a.on::after{display:none}
 .trio .n{font-family:var(--display);font-weight:800;font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-.035em;line-height:1;color:var(--accent)}
 .trio .l{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);margin-top:.5rem;line-height:1.35}
 
-/* hackathon: dark band, mint accent, live countdown */
-body[data-page="hackathon"] .phero{
-  background:linear-gradient(150deg,#07131F 0%,#0C2A3F 52%,#0A3A44 100%);
-  color:#EAF7F2;margin-bottom:0;
-}
-body[data-page="hackathon"] .phero::after{color:#12B886;opacity:.13}
-body[data-page="hackathon"] .phero .lede{color:rgba(224,244,238,.76)}
-body[data-page="hackathon"] .phero .crumb{color:rgba(224,244,238,.5)}
-body[data-page="hackathon"] .phero .crumb::after{color:rgba(224,244,238,.5)}
-body[data-page="hackathon"] .phero .crumb a{color:var(--accent-2)}
-body[data-page="hackathon"] .phero .chip{background:rgba(255,255,255,.06);border-color:rgba(234,247,242,.22);color:#EAF7F2}
-body[data-page="hackathon"] .phero .btn-ghost{background:transparent;color:#EAF7F2;border-color:rgba(234,247,242,.3)}
-body[data-page="hackathon"] .phero .btn-ghost:hover{background:rgba(255,255,255,.08);border-color:var(--accent-2)}
-body[data-page="hackathon"] .phero-mod{background:rgba(255,255,255,.05);border-color:rgba(234,247,242,.18)}
-body[data-page="hackathon"] .phero-mod .modh{color:rgba(224,244,238,.55)}
+/* hackathon: same light palette as the rest of the site, plus a live clock */
 .clock{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center}
-.clock > div{background:rgba(255,255,255,.05);border:1px solid rgba(234,247,242,.14);border-radius:12px;padding:14px 6px}
-.clock .n{font-family:var(--display);font-weight:800;font-size:clamp(1.3rem,3.4vw,1.9rem);letter-spacing:-.03em;line-height:1;color:#fff;font-variant-numeric:tabular-nums}
-.clock .l{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(224,244,238,.5);margin-top:.5rem}
+.clock > div{background:#F7FBFE;border:1px solid var(--line);border-radius:12px;padding:14px 6px}
+.clock .n{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(1.3rem,3.4vw,1.9rem);letter-spacing:-.03em;line-height:1;
+  color:var(--accent);font-variant-numeric:tabular-nums;
+}
+.clock .l{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);margin-top:.5rem}
 
 /* get-involved: the form is the page, so it starts higher up */
 body[data-page="get-involved"] .phero{padding-bottom:clamp(18px,2vw,26px)}
@@ -706,6 +709,145 @@ body[data-page="get-involved"] .phero{padding-bottom:clamp(18px,2vw,26px)}
 @keyframes pageIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .page-swap{animation:pageIn .42s cubic-bezier(.2,.75,.25,1)}
 @media(prefers-reduced-motion:reduce){.page-swap{animation:none}}
+
+/* ===============================================================
+   COMPOUND HACKS PAGE
+   This one route wears the hackathon's own identity instead of the
+   site's: near-black paper, mint accent. If the exact hexes on
+   compoundhacks.dev differ, change the two lines marked below and
+   the whole page follows.
+   ===============================================================*/
+html[data-page="hackathon"]{background:#070B0A}
+body[data-page="hackathon"]{
+  --accent:#3DDC97;          /* ← Compound Hacks mint */
+  --accent-2:#9BF0CE;
+  --ch-bg:#070B0A;           /* ← Compound Hacks near-black */
+  --ch-panel:#0E1614;
+  --ch-panel-2:#121D1A;
+  --ch-line:#1E2E29;
+  --ch-text:#E9FBF4;
+  --ch-dim:#8CA79E;
+  background:var(--ch-bg);
+  color:var(--ch-text);
+}
+
+/* ambient layers */
+body[data-page="hackathon"]::before{
+  background-image:
+    linear-gradient(to right,rgba(61,220,151,.07) 1px,transparent 1px),
+    linear-gradient(to bottom,rgba(61,220,151,.07) 1px,transparent 1px);
+}
+body[data-page="hackathon"]::after{
+  background:
+    radial-gradient(720px 520px at 84% -8%,rgba(61,220,151,.16),transparent 62%),
+    radial-gradient(640px 500px at -10% 34%,rgba(61,220,151,.07),transparent 64%),
+    radial-gradient(820px 560px at 62% 104%,rgba(61,220,151,.10),transparent 66%);
+}
+body[data-page="hackathon"] .orb{background:rgba(61,220,151,.16)!important}
+
+/* chrome */
+body[data-page="hackathon"] header{background:rgba(7,11,10,.82)}
+body[data-page="hackathon"] header.stuck{border-bottom-color:var(--ch-line);box-shadow:0 6px 24px -20px #000}
+body[data-page="hackathon"] .brand{color:var(--ch-text)}
+body[data-page="hackathon"] .brand span i{color:var(--accent)}
+body[data-page="hackathon"] nav.links a{color:var(--ch-dim)}
+body[data-page="hackathon"] nav.links a:hover{color:var(--ch-text)}
+body[data-page="hackathon"] nav.links a.on{
+  color:var(--accent);background:rgba(61,220,151,.10);border-color:rgba(61,220,151,.28);
+}
+body[data-page="hackathon"] .btn-primary{color:#04120C;font-weight:700}
+body[data-page="hackathon"] .btn-ghost{background:transparent;color:var(--ch-text);border-color:var(--ch-line)}
+body[data-page="hackathon"] .btn-ghost:hover{background:var(--ch-panel);border-color:var(--accent-2)}
+body[data-page="hackathon"] .menu-btn{border-color:var(--ch-line)}
+body[data-page="hackathon"] .menu-btn span,
+body[data-page="hackathon"] .menu-btn span::before,
+body[data-page="hackathon"] .menu-btn span::after{background:var(--ch-text)}
+@media(max-width:940px){
+  body[data-page="hackathon"] header.open nav.links{background:var(--ch-bg);border-bottom-color:var(--ch-line)}
+  body[data-page="hackathon"] header.open nav.links a{border-bottom-color:var(--ch-line)}
+}
+
+/* type + surfaces */
+body[data-page="hackathon"] h1,
+body[data-page="hackathon"] h2,
+body[data-page="hackathon"] h3,
+body[data-page="hackathon"] h4{color:var(--ch-text)}
+body[data-page="hackathon"] .lede,
+body[data-page="hackathon"] .muted,
+body[data-page="hackathon"] .card p,
+body[data-page="hackathon"] .step p,
+body[data-page="hackathon"] .srow p,
+body[data-page="hackathon"] details p,
+body[data-page="hackathon"] .checklist li{color:var(--ch-dim)}
+body[data-page="hackathon"] .crumb,
+body[data-page="hackathon"] .crumb::after{color:var(--ch-dim)}
+body[data-page="hackathon"] .eyebrow::after{background:var(--ch-line)}
+body[data-page="hackathon"] .phero{background:linear-gradient(180deg,rgba(61,220,151,.09),transparent 86%)}
+body[data-page="hackathon"] .phero::after{color:var(--accent);opacity:.10}
+body[data-page="hackathon"] section.wash{
+  background:linear-gradient(180deg,var(--ch-panel),rgba(14,22,20,.35));
+  border-block-color:var(--ch-line);
+}
+body[data-page="hackathon"] .chip{background:var(--ch-panel);border-color:var(--ch-line);color:var(--ch-text)}
+body[data-page="hackathon"] .card,
+body[data-page="hackathon"] .phero-mod,
+body[data-page="hackathon"] .steps,
+body[data-page="hackathon"] .rail .box{
+  background:var(--ch-panel);border-color:var(--ch-line);
+}
+body[data-page="hackathon"] .card:hover{background:var(--ch-panel-2);border-color:rgba(61,220,151,.42);box-shadow:0 30px 55px -42px #000}
+body[data-page="hackathon"] .card .ic{background:var(--ch-panel-2);border-color:var(--ch-line)}
+body[data-page="hackathon"] .card:hover .ic svg{stroke:#04120C}
+body[data-page="hackathon"] .step{border-right-color:var(--ch-line)}
+body[data-page="hackathon"] .step:hover{background:var(--ch-panel-2)}
+body[data-page="hackathon"] .sched,
+body[data-page="hackathon"] .srow,
+body[data-page="hackathon"] details,
+body[data-page="hackathon"] .courses,
+body[data-page="hackathon"] .course{border-color:var(--ch-line)}
+body[data-page="hackathon"] .clock > div{background:var(--ch-panel-2);border-color:var(--ch-line)}
+body[data-page="hackathon"] .clock .n{color:var(--ch-text)}
+body[data-page="hackathon"] .clock .l,
+body[data-page="hackathon"] .phero-mod .modh,
+body[data-page="hackathon"] .trio .l{color:var(--ch-dim)}
+body[data-page="hackathon"] .checklist svg{background:var(--ch-panel-2);border-color:var(--ch-line)}
+body[data-page="hackathon"] .checklist li:hover svg{stroke:#04120C}
+body[data-page="hackathon"] .checklist b{color:var(--ch-text)}
+body[data-page="hackathon"] details summary{color:var(--ch-text)}
+body[data-page="hackathon"] details summary:hover{color:var(--accent)}
+@media(max-width:880px){
+  body[data-page="hackathon"] .step{border-right:0;border-bottom-color:var(--ch-line)}
+}
+
+/* the banner card, already dark, retuned to mint */
+body[data-page="hackathon"] .hack{background:linear-gradient(135deg,#06100D 0%,#0C201B 58%,#123D30 100%)}
+body[data-page="hackathon"] .hack::after{background:radial-gradient(circle,rgba(61,220,151,.34),transparent 62%)}
+body[data-page="hackathon"] .hack p{color:rgba(233,251,244,.82)}
+body[data-page="hackathon"] .hack-meta div{color:rgba(233,251,244,.55)}
+body[data-page="hackathon"] .hack .btn-primary{background:var(--accent);color:#04120C}
+body[data-page="hackathon"] .hack .btn-primary:hover{background:var(--accent-2)}
+
+/* locked-track panel, the one thing unique to this page */
+.locked{
+  display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;
+  margin-top:18px;padding:22px 24px;
+  border:1px dashed var(--ch-line,var(--line));border-radius:var(--r);
+  background:rgba(61,220,151,.05);
+}
+.locked .lk{
+  width:42px;height:42px;border-radius:12px;display:grid;place-items:center;
+  background:rgba(61,220,151,.12);border:1px solid rgba(61,220,151,.3);
+}
+.locked h4{margin-bottom:.35rem}
+.locked p{font-size:.92rem}
+@media(max-width:620px){.locked{grid-template-columns:1fr}}
+
+/* footer picks up the hackathon palette too */
+body[data-page="hackathon"] footer{background:#040907}
+body[data-page="hackathon"] footer::before{background:linear-gradient(90deg,var(--accent),var(--accent-2),var(--accent))}
+body[data-page="hackathon"] footer .brand span i{color:var(--accent)}
+body[data-page="hackathon"] .foot-links a:hover{color:var(--accent)}
+body[data-page="hackathon"] .sub button{background:var(--accent);color:#04120C}
 
 /* ---------- single-file router ---------- */
 [hidden]{display:none!important}
@@ -1436,87 +1578,100 @@ body[data-page="get-involved"] .phero{padding-bottom:clamp(18px,2vw,26px)}
 
 </div>
 <div class="page" data-route="hackathon" data-title="Hackathon | DevFintech" hidden>
-
 <!-- ================= PAGE HERO ================= -->
 <div class="phero">
   <div class="orb orb-a"></div>
   <div class="shell phero-grid">
     <div>
       <p class="crumb"><a href="#/home">Home</a> / Compound Hacks</p>
-      <h1>Build something that touches money. In one day.</h1>
+      <h1>Build with <em>money.</em></h1>
       <div class="accent-rule"></div>
-      <p class="lede load l1" style="margin-top:1.4rem">Compound Hacks is our first hackathon: a free, one-day, in-person event for Bay Area high schoolers. Show up at 8, form a team, build, and pitch to judges by 20:00. You do not need to know how to code to be useful on a team.</p>
+      <p class="lede load l1" style="margin-top:1.4rem">A one-day hackathon for Bay Area high schoolers, run by DevFintech. Show up at 8, form a team, build something that touches money, and pitch it to judges by 20:00. Free to enter, food included, no experience needed.</p>
       <div class="hero-cta load l2">
-        <a class="btn btn-primary" href="https://compoundhacks.dev/" target="_blank" rel="noopener">Register at compoundhacks.dev <span class="arw">→</span></a>
-        <a class="btn btn-ghost" href="#/hackathon:schedule">See the schedule</a>
+        <a class="btn btn-primary" href="https://compoundhacks.dev/" target="_blank" rel="noopener">Sign up <span class="arw">→</span></a>
+        <a class="btn btn-ghost" href="#/hackathon:tracks">See the tracks</a>
       </div>
       <div class="phero-facts load l3">
         <span class="chip">December 2, 2026</span>
         <span class="chip">Bay Area</span>
         <span class="chip">Free entry</span>
-        <span class="chip">Food included</span>
+        <span class="chip">Teams up to 4</span>
       </div>
     </div>
     <div class="phero-mod load l2">
-      <div class="modh">Doors open in</div>
+      <div class="modh">Check-in opens in</div>
       <div class="clock" id="clock" data-deadline="2026-12-02T08:00:00-08:00">
         <div><div class="n" data-unit="d">—</div><div class="l">Days</div></div>
         <div><div class="n" data-unit="h">—</div><div class="l">Hours</div></div>
         <div><div class="n" data-unit="m">—</div><div class="l">Minutes</div></div>
         <div><div class="n" data-unit="s">—</div><div class="l">Seconds</div></div>
       </div>
+      <p class="muted" style="font-size:.84rem;margin-top:1rem">08:00 check-in · 22:00 prizes</p>
     </div>
   </div>
 </div>
 
-<!-- ================= BANNER ================= -->
-<section class="tight">
-  <div class="shell">
-    <div class="hack rv">
-      <div class="eyebrow">The short version</div><div class="accent-rule"></div>
-      <h2>One day, one build, one pitch.</h2>
-      <p>Teams of up to four. Twelve hours from kickoff to judging. Anything that touches money counts: a budgeting tool, a fraud detector, a market visualizer, a game that teaches compounding. Mentors from our chapters float the room all day.</p>
-      <div class="hack-meta">
-        <div>Date<strong>December 2, 2026</strong></div>
-        <div>Doors<strong>8:00 AM</strong></div>
-        <div>Team size<strong>1 to 4</strong></div>
-        <div>Cost<strong>$0</strong></div>
-      </div>
-      <a class="btn btn-primary" href="https://compoundhacks.dev/" target="_blank" rel="noopener">Register now <span class="arw">→</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- ================= WHO IT'S FOR ================= -->
-<section class="wash">
+<!-- ================= TRACKS ================= -->
+<section id="tracks" class="wash tight">
   <div class="field" data-field="diamond"></div>
   <div class="shell">
     <div class="sec-head rv">
-      <div class="eyebrow">Who it's for</div><div class="accent-rule"></div>
-      <h2>Especially the people who assume it isn't for them.</h2>
-      <p class="lede">Half of a good hackathon team isn't writing code. If you can design, research, explain an idea, or keep three people organized under a deadline, you are the reason a project finishes.</p>
+      <div class="eyebrow">Tracks</div><div class="accent-rule"></div>
+      <h2>Three tracks. Three winners.</h2>
+      <p class="lede">Every team also competes for overall, so there is nothing to opt into. A theme drops at opening and applies to all three.</p>
     </div>
+
     <div class="cards">
       <div class="card rv">
         <div class="ic">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B84E8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 17-5-5 5-5"/><path d="m16 7 5 5-5 5"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3DDC97" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a5 5 0 0 0-5 5v1a4 4 0 0 0-1 7.8V19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2.2A4 4 0 0 0 17 9V8a5 5 0 0 0-5-5Z"/>
+          </svg>
         </div>
-        <h3>First-timers</h3>
-        <p>Never been to one. We run a beginner track: a starter project, a mentor assigned to your table, and a workshop in the first hour so you're not staring at an empty file.</p>
+        <div class="num" style="font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;color:var(--accent);margin-bottom:.6rem">01</div>
+        <h3>Best AI/ML</h3>
+        <p>Anything built on a model: an LLM, a classifier, something you trained yourself. A chatbot that explains a credit score counts. So does a model that reads market data.</p>
+        <p class="muted" style="font-size:.84rem;margin-top:.9rem">LLMs · Classifiers · Agents</p>
+        <p class="muted" style="font-size:.84rem;margin-top:.5rem"><b>Judged on</b> how well the model actually does the job.</p>
       </div>
+
       <div class="card rv">
         <div class="ic">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B84E8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m7 15 4-4 3 3 5-6"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3DDC97" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/>
+            <path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/>
+          </svg>
         </div>
-        <h3>Finance-minded, not code-minded</h3>
-        <p>You understand the problem better than anyone at the table. Bring the domain knowledge, pair with someone who writes the code, and pitch it yourself.</p>
+        <div class="num" style="font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;color:var(--accent);margin-bottom:.6rem">02</div>
+        <h3>Best Hardware</h3>
+        <p>For the people who show up with a bin of parts. Arduino, Pi, sensors, anything physical that reads or reacts to money moving. Bring your own components.</p>
+        <p class="muted" style="font-size:.84rem;margin-top:.9rem">Arduino · Raspberry Pi · Sensors</p>
+        <p class="muted" style="font-size:.84rem;margin-top:.5rem"><b>Judged on</b> whether it works in front of the judges.</p>
       </div>
+
       <div class="card rv">
         <div class="ic">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B84E8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a5 5 0 0 0-5 5v1a4 4 0 0 0-1 7.8V19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2.2A4 4 0 0 0 17 9V8a5 5 0 0 0-5-5Z"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3DDC97" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/>
+          </svg>
         </div>
-        <h3>Experienced builders</h3>
-        <p>You've shipped before. Come for the twelve-hour constraint, the judges, and a room full of people who will actually use what you make.</p>
+        <div class="num" style="font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;color:var(--accent);margin-bottom:.6rem">03</div>
+        <h3>Best Funny/Cursed</h3>
+        <p>The project that shouldn't exist but does. Technically impressive, deeply unnecessary. A budgeting app that insults you. A stock picker driven by a goldfish.</p>
+        <p class="muted" style="font-size:.84rem;margin-top:.9rem">Chaos · Bad ideas · Executed well</p>
+        <p class="muted" style="font-size:.84rem;margin-top:.5rem"><b>Judged on</b> how hard the room laughs.</p>
+      </div>
+    </div>
+
+    <div class="locked rv">
+      <div class="lk">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3DDC97" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+        </svg>
+      </div>
+      <div>
+        <h4>Tracks are locked until the day</h4>
+        <p class="muted">They unlock with a password announced during the opening presentation at 09:00, so nobody turns up with a project half-built.</p>
       </div>
     </div>
   </div>
@@ -1528,81 +1683,110 @@ body[data-page="get-involved"] .phero{padding-bottom:clamp(18px,2vw,26px)}
   <div class="shell">
     <div class="sec-head rv">
       <div class="eyebrow">Schedule</div><div class="accent-rule"></div>
-      <h2>How the day runs.</h2>
-      <p class="lede">Times are close to final. Anything that shifts will be posted at compoundhacks.dev before the event.</p>
+      <h2>One day, start to finish.</h2>
+      <p class="lede">December 2, 2026. Fourteen hours from the first badge to the last prize.</p>
     </div>
     <div class="sched">
-      <div class="srow rv"><div class="t">8:00 AM</div><div><h4>Doors and check-in</h4><p>Breakfast, badges, and table assignments. Come alone if you want, we run team formation right after.</p></div></div>
-      <div class="srow rv"><div class="t">8:45 AM</div><div><h4>Opening and team formation</h4><p>Rules, judging criteria, and prompts. If you don't have a team, you'll leave this session with one.</p></div></div>
-      <div class="srow rv"><div class="t">9:30 AM</div><div><h4>Build starts</h4><p>The clock is running. Mentors circulate all day, and there's a help queue for when you're properly stuck.</p></div></div>
-      <div class="srow rv"><div class="t">10:30 AM</div><div><h4>Beginner workshop</h4><p>Optional, one hour, from zero to a running project. Aimed at anyone who has never shipped anything.</p></div></div>
-      <div class="srow rv"><div class="t">12:30 PM</div><div><h4>Lunch</h4><p>Provided. Tell us about dietary restrictions on the registration form and we'll sort it.</p></div></div>
-      <div class="srow rv"><div class="t">3:00 PM</div><div><h4>Mentor checkpoint</h4><p>Every team gets ten minutes with a mentor to cut scope. This is the session that saves projects.</p></div></div>
-      <div class="srow rv"><div class="t">6:00 PM</div><div><h4>Dinner and submissions open</h4><p>Submit early, keep editing. Late submissions are the single most common way teams disqualify themselves.</p></div></div>
-      <div class="srow rv"><div class="t">7:30 PM</div><div><h4>Submissions close</h4><p>Hard cutoff. Demo videos and repos in by this point, no exceptions, because judging starts immediately.</p></div></div>
-      <div class="srow rv"><div class="t">8:00 PM</div><div><h4>Judging and awards</h4><p>Three minutes to pitch, two for questions. Awards, photos, and out by nine.</p></div></div>
+      <div class="srow rv"><div class="t">08:00 · 1 hr</div><div><h4>Check-in begins</h4><p>Grab your swag and badge, find a table, get warmed up with your team, grab a breakfast snack.</p></div></div>
+      <div class="srow rv"><div class="t">09:00 · 30 min</div><div><h4>Opening</h4><p>The opening presentation, sponsor keynotes, and the theme announcement. Don't be late for this one, everything after depends on it.</p></div></div>
+      <div class="srow rv"><div class="t">09:30 · 30 min</div><div><h4>Workshop</h4><p>The world-famous How To Win A Hackathon workshop. Worth sitting through even if you've done this before.</p></div></div>
+      <div class="srow rv"><div class="t">10:00 · 10 hrs</div><div><h4>Hacking starts</h4><p>Ten hours on the clock. Mentors are on the floor from here until submissions close.</p></div></div>
+      <div class="srow rv"><div class="t">12:00 · 1 hr</div><div><h4>Lunch</h4><p>Have a break, let your brain rest, and recharge with a fully catered meal.</p></div></div>
+      <div class="srow rv"><div class="t">13:00 · 45 min</div><div><h4>Workshop</h4><p>Second workshop of the day. Speaker and topic announced closer to the event.</p></div></div>
+      <div class="srow rv"><div class="t">18:00 · 1 hr</div><div><h4>Dinner</h4><p>Catered dinner, because by this point everyone is hungry.</p></div></div>
+      <div class="srow rv"><div class="t">20:00 · deadline</div><div><h4>Hacking ends</h4><p>Hard cutoff. Submit your project and start preparing for judging, which commences immediately.</p></div></div>
+      <div class="srow rv"><div class="t">22:00 · 1 hr</div><div><h4>Closing &amp; prizes</h4><p>Find out who won, collect prizes, and then we send everyone home.</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- ================= JUDGING + FAQ ================= -->
+<!-- ================= WHO IT'S FOR ================= -->
 <section class="wash">
   <div class="shell mentor-grid">
     <div class="rv rv-l">
-      <div class="eyebrow">Judging</div><div class="accent-rule"></div>
-      <h2 style="margin:1rem 0 1.1rem">What the judges are looking for.</h2>
-      <p class="lede">Polish loses to clarity here. A rough thing that solves a real problem beats a beautiful thing that solves nothing.</p>
+      <div class="eyebrow">Who it's for</div><div class="accent-rule"></div>
+      <h2 style="margin:1rem 0 1.1rem">Especially the people who assume it isn't for them.</h2>
+      <p class="lede">Half of a good hackathon team isn't writing code. If you can design, research, explain an idea, or keep three people organized under a deadline, you are the reason a project finishes.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://compoundhacks.dev/" target="_blank" rel="noopener">Register on compoundhacks.dev <span class="arw">→</span></a>
+      </div>
     </div>
     <div>
       <ul class="checklist rv rv-r">
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B84E8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-          <span><b>Does it work?</b> A demo that runs live beats a slide describing what it would do.</span></li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B84E8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-          <span><b>Is the problem real?</b> Name the person who has it. Vague markets score badly.</span></li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B84E8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-          <span><b>Did you build it today?</b> Bringing a finished side project and reskinning it is the fastest way out of the running.</span></li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B84E8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-          <span><b>Can you explain it?</b> Three minutes, no jargon, to someone who has never seen your project.</span></li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3DDC97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          <span><b>First-timers.</b> There's a workshop right after opening and mentors on the floor all day. Most people arrive without knowing what they'll make.</span></li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3DDC97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          <span><b>Non-coders.</b> Every team needs someone who can design the thing and pitch it. That job decides more finals than the code does.</span></li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3DDC97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          <span><b>Solo registrants.</b> Sign up alone and get matched into a team at check-in. Plenty of winning teams meet that morning.</span></li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3DDC97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          <span><b>Hardware people.</b> There's a whole track for you, and it's usually the least crowded one. Bring your own components.</span></li>
       </ul>
     </div>
   </div>
+</section>
 
-  <div class="shell" style="margin-top:clamp(40px,6vw,72px)">
+<!-- ================= FAQ ================= -->
+<section>
+  <div class="field" data-field="ring"></div>
+  <div class="shell">
+    <div class="sec-head rv">
+      <div class="eyebrow">FAQ</div><div class="accent-rule"></div>
+      <h2>Before you sign up.</h2>
+    </div>
     <div style="max-width:860px">
       <details class="rv">
-        <summary>Do I need a team before registering?<span class="pm"></span></summary>
-        <p>No. Register alone and we'll run team formation right after the opening. Plenty of the best projects come from teams that met that morning.</p>
+        <summary>What is a hackathon?<span class="pm"></span></summary>
+        <p>A day where teams build a project from scratch and demo it to judges at the end. You pick the idea, you write the code, and you have a hard deadline. Most people arrive without knowing what they'll make.</p>
       </details>
       <details class="rv">
-        <summary>Do I need my own laptop?<span class="pm"></span></summary>
-        <p>Bring one if you have one. If you don't, say so on the registration form, we keep a small pool of loaners, which is part of what our funding goes toward.</p>
+        <summary>Who can attend?<span class="pm"></span></summary>
+        <p>Any high school student. You don't need to be part of DevFintech, and you don't need to be from a specific school.</p>
       </details>
       <details class="rv">
-        <summary>Is it really free?<span class="pm"></span></summary>
-        <p>Yes. Entry, food, and materials are covered by sponsors. There is no ticket, no dues, and nothing to buy at the door.</p>
+        <summary>How big can teams be?<span class="pm"></span></summary>
+        <p>Up to four people. You can register solo and get matched into a team at check-in.</p>
       </details>
       <details class="rv">
-        <summary>My school isn't in the Bay Area.<span class="pm"></span></summary>
-        <p>This first one is in-person and local. If you'd like a Compound Hacks near you, start a chapter, that's how we decide where the next one goes.</p>
+        <summary>What should I bring?<span class="pm"></span></summary>
+        <p>A laptop, a charger, a student ID, and a water bottle. If you're going for the hardware track, bring your own components.</p>
+      </details>
+      <details class="rv">
+        <summary>How much does it cost?<span class="pm"></span></summary>
+        <p>Nothing. Entry is free and both meals are catered.</p>
+      </details>
+      <details class="rv">
+        <summary>Do I need to know how to code?<span class="pm"></span></summary>
+        <p>No. There's a workshop right after opening, mentors on the floor all day, and every team needs someone who can design the thing and pitch it.</p>
+      </details>
+      <details class="rv">
+        <summary>What are the prizes?<span class="pm"></span></summary>
+        <p>One winner per track plus an overall winner. Specific prizes are announced as sponsors lock in, so register and you'll hear first.</p>
+      </details>
+      <details class="rv">
+        <summary>Is there a Discord?<span class="pm"></span></summary>
+        <p>Yes. The invite is in your confirmation email, and that's where every announcement goes.</p>
+      </details>
+      <details class="rv">
+        <summary>Can I judge or sponsor?<span class="pm"></span></summary>
+        <p>Both are open. Email <a href="mailto:thedevfintech@gmail.com" style="color:var(--accent)">thedevfintech@gmail.com</a> with either "judging" or "sponsor" in the subject line, and ask for the prospectus if you're sponsoring.</p>
       </details>
     </div>
   </div>
 </section>
 
 <!-- ================= CTA ================= -->
-<section class="cta-halo">
-  <div class="field" data-field="ring"></div>
+<section class="wash cta-halo">
   <div class="shell close-cta rv">
-    <div class="eyebrow">Two ways in</div><div class="accent-rule" style="margin-inline:auto"></div>
-    <h2>Compete, or bring your whole club.</h2>
-    <p class="lede">Registration for the event lives at compoundhacks.dev. If you want your school teaching this material year-round, that starts here instead.</p>
+    <div class="eyebrow">Spots are limited</div><div class="accent-rule" style="margin-inline:auto"></div>
+    <h2>Registration takes about two minutes.</h2>
+    <p class="lede">Venue and Discord invite land in your inbox the moment they're set. Under 18? Have a parent or guardian email handy, the form asks for it.</p>
     <div class="hero-cta">
-      <a class="btn btn-primary" href="https://compoundhacks.dev/" target="_blank" rel="noopener">Register for the hackathon <span class="arw">→</span></a>
-      <a class="btn btn-ghost" href="#/get-involved">Start a chapter</a>
+      <a class="btn btn-primary" href="https://compoundhacks.dev/" target="_blank" rel="noopener">Sign up for Compound Hacks <span class="arw">→</span></a>
+      <a class="btn btn-ghost" href="#/get-involved">Start a chapter instead</a>
     </div>
   </div>
 </section>
-
 </div>
 <div class="page" data-route="get-involved" data-title="Get involved | DevFintech" hidden>
 
@@ -1906,6 +2090,7 @@ function show(route, anchor, animate) {
 
   pages.forEach(p => p.hidden = (p.dataset.route !== route));
   document.body.dataset.page = route;
+  document.documentElement.dataset.page = route;
 
   const shown = document.querySelector(`.page[data-route="${route}"]`);
   if (animate) {
