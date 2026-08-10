@@ -596,7 +596,9 @@ header{opacity:0;animation:fadeIn .8s .05s ease forwards}
 :root{--accent:#1B84E8;--accent-2:#8FC9F5;--pnum:"01";--plabel:"Home"}
 body[data-page="curriculum"]  {--accent:#0E6BD6;--accent-2:#7FB6EE;--pnum:"02";--plabel:"Curriculum"}
 body[data-page="chapters"]    {--accent:#0B3A85;--accent-2:#8AAAD6;--pnum:"03";--plabel:"Chapters"}
-body[data-page="get-involved"]{--accent:#0A4FAF;--accent-2:#7CA5DF;--pnum:"04";--plabel:"Get involved"}
+body[data-page="get-involved"]    {--accent:#0E6BD6;--accent-2:#7FB6EE;--pnum:"04";--plabel:"Get involved"}
+body[data-page="start-a-chapter"] {--accent:#0A4FAF;--accent-2:#7CA5DF;--pnum:"05";--plabel:"Work with us"}
+body[data-page="class"]           {--accent:#1B84E8;--accent-2:#8FC9F5;--pnum:"06";--plabel:"Sign up for a class"}
 
 /* accent takes over everywhere the brand blue was decorative */
 .eyebrow{color:var(--accent)}
@@ -654,7 +656,7 @@ nav.links a:focus-visible{outline-offset:2px;border-radius:100px}
 /* each page opens over a wash of its own colour */
 .phero{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 11%,transparent),transparent 88%)}
 .phero .crumb::after{
-  content:" · " var(--pnum) " of 04";
+  content:" · " var(--pnum) " of 06";
   color:var(--slate);
 }
 
@@ -786,6 +788,14 @@ details:not([open]) summary:hover{transform:translateX(4px)}
   .page-swap .shell > *{animation:none}
 }
 
+/* ---------- get-involved fork: two big choice cards ---------- */
+.choice-eyebrow{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--slate);margin-bottom:.7rem;transition:color .2s ease;
+}
+.choice-card:hover .choice-eyebrow{color:var(--accent)}
+.choice-card{color:var(--ink)}
+
 /* ---------- single-file router ---------- */
 [hidden]{display:none!important}
 
@@ -808,7 +818,7 @@ details:not([open]) summary:hover{transform:translateX(4px)}
       <a href="#/get-involved">Get involved</a>
     </nav>
     <div class="head-cta">
-      <a class="btn btn-primary" href="#/get-involved">Start a chapter</a>
+      <a class="btn btn-primary" id="headCta" href="#/class">Sign up</a>
     </div>
   </div>
 </header>
@@ -991,7 +1001,7 @@ details:not([open]) summary:hover{transform:translateX(4px)}
     </div></div>
 
     <div class="hero-cta rv" style="justify-content:center;margin-top:2.4rem">
-      <a class="btn btn-primary" href="#/get-involved">Bring DevFintech to your school <span class="arw">→</span></a>
+      <a class="btn btn-primary" href="#/start-a-chapter">Bring DevFintech to your school <span class="arw">→</span></a>
     </div>
   </div>
 </section>
@@ -1021,9 +1031,9 @@ details:not([open]) summary:hover{transform:translateX(4px)}
   <div class="shell close-cta rv">
     <div class="eyebrow">Get involved</div><div class="accent-rule" style="margin-inline:auto"></div>
     <h2>Bring DevFintech to your school.</h2>
-    <p class="lede">Whether you want to lead a chapter, teach a course, mentor students, or sponsor a program, start with one form and we'll take it from there.</p>
+    <p class="lede">Whether you want to lead a chapter, sign your student up for a class, mentor students, or sponsor a program, start here and we'll point you to the right form.</p>
     <div class="hero-cta">
-      <a class="btn btn-primary" href="#/get-involved">Fill out the form <span class="arw">→</span></a>
+      <a class="btn btn-primary" href="#/get-involved">Get involved <span class="arw">→</span></a>
       <a class="btn btn-ghost" href="mailto:thedevfintech@gmail.com">Email us</a>
     </div>
   </div>
@@ -1280,7 +1290,7 @@ details:not([open]) summary:hover{transform:translateX(4px)}
     <h2>Want these courses at your school?</h2>
     <p class="lede">Tell us which ones and we'll build the schedule with you. Starting a chapter and bringing us into a club you already run are both fine.</p>
     <div class="hero-cta">
-      <a class="btn btn-primary" href="#/get-involved">Request the courses <span class="arw">→</span></a>
+      <a class="btn btn-primary" href="#/start-a-chapter">Request the courses <span class="arw">→</span></a>
       <a class="btn btn-ghost" href="#/chapters">How chapters work</a>
     </div>
   </div>
@@ -1425,7 +1435,7 @@ details:not([open]) summary:hover{transform:translateX(4px)}
       <h2 style="margin:1rem 0 1.1rem">Taught by students who had to learn it first.</h2>
       <p class="lede">Our instructors are high schoolers, selected through an application process and trained before they teach. Because they learned this material recently, they remember which parts were confusing, and they don't skip past them.</p>
       <div class="hero-cta">
-        <a class="btn btn-primary" href="#/get-involved">Apply to teach <span class="arw">→</span></a>
+        <a class="btn btn-primary" href="#/start-a-chapter">Apply to teach <span class="arw">→</span></a>
       </div>
     </div>
     <div>
@@ -1507,7 +1517,7 @@ details:not([open]) summary:hover{transform:translateX(4px)}
     <h2>Start yours.</h2>
     <p class="lede">Two minutes of questions, then a real reply from a person within a couple of days.</p>
     <div class="hero-cta">
-      <a class="btn btn-primary" href="#/get-involved">Apply to lead a chapter <span class="arw">→</span></a>
+      <a class="btn btn-primary" href="#/start-a-chapter">Apply to lead a chapter <span class="arw">→</span></a>
       <a class="btn btn-ghost" href="#/curriculum">See the courses first</a>
     </div>
   </div>
@@ -1521,6 +1531,117 @@ details:not([open]) summary:hover{transform:translateX(4px)}
   <div class="orb orb-a"></div>
   <div class="shell">
     <p class="crumb"><a href="#/home">Home</a> / Get involved</p>
+    <h1>Two ways in. Pick one.</h1>
+    <div class="accent-rule"></div>
+    <p class="lede load l1" style="margin-top:1.4rem">Everyone who reaches out is either signing a student up to learn, or looking to bring DevFintech to their own school, club, or community. Tell us which, and we'll take you straight to the right form.</p>
+    <div class="phero-facts load l2">
+      <span class="chip">Both are free</span>
+      <span class="chip">Reply within two days</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= THE FORK ================= -->
+<section id="options" class="wash tight">
+  <div class="field" data-field="grid"></div>
+  <div class="shell">
+    <div class="cards two">
+
+      <a class="card rv choice-card" href="#/class" style="text-decoration:none;display:block">
+        <div class="ic" style="width:44px;height:44px;border-radius:12px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B84E8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+        </div>
+        <div class="choice-eyebrow">For students and families</div>
+        <h3 style="font-size:clamp(1.3rem,2.4vw,1.6rem);margin-bottom:.7rem">Sign up for a class</h3>
+        <p>Register a student for live, free sessions taught by a trained student mentor. Two minutes of questions, then we confirm a time that works.</p>
+        <span class="more" style="margin-top:1.2rem">Go to the class form →</span>
+      </a>
+
+      <a class="card rv choice-card" href="#/start-a-chapter" style="text-decoration:none;display:block">
+        <div class="ic" style="width:44px;height:44px;border-radius:12px">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1B84E8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a5 5 0 0 0-5 5v1a4 4 0 0 0-1 7.8V19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2.2A4 4 0 0 0 17 9V8a5 5 0 0 0-5-5Z"/>
+          </svg>
+        </div>
+        <div class="choice-eyebrow">For schools, clubs, and volunteers</div>
+        <h3 style="font-size:clamp(1.3rem,2.4vw,1.6rem);margin-bottom:.7rem">Work with us</h3>
+        <p>Start a chapter, teach our curriculum inside a club you already run, mentor, speak, or sponsor. One form, and we'll figure out the right fit.</p>
+        <span class="more" style="margin-top:1.2rem">Go to the chapter form →</span>
+      </a>
+
+    </div>
+
+    <p class="hint rv" style="margin-top:1.6rem;text-align:center">Not sure which one? If it's about a specific kid learning, pick the first. If it's about your school or organization, pick the second.</p>
+  </div>
+</section>
+
+<!-- ================= WHAT EACH ONE COVERS ================= -->
+<section>
+  <div class="field" data-field="diamond"></div>
+  <div class="shell">
+    <div class="sec-head rv">
+      <div class="eyebrow">What each path covers</div><div class="accent-rule"></div>
+      <h2>Both roads end up free.</h2>
+      <p class="lede">Here's the shorthand for what happens after you pick.</p>
+    </div>
+    <div class="steps">
+      <div class="step rv">
+        <div class="num">CLASS</div>
+        <h3>One student, one schedule</h3>
+        <p>You give us the student's info, a guardian contact, and a time that works. We place them in a small live group and confirm a slot within two days.</p>
+      </div>
+      <div class="step rv">
+        <div class="num">CHAPTER</div>
+        <h3>A new club at your school</h3>
+        <p>You tell us the school, your role, and who's helping launch it. We send the curriculum, run a training call, and help you recruit.</p>
+      </div>
+      <div class="step rv">
+        <div class="num">EXISTING GROUP</div>
+        <h3>Teach inside a club you run</h3>
+        <p>Same form as starting a chapter, different first answer. We plan sessions around a club, class, or program that already meets.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OTHER WAYS IN ================= -->
+<section class="wash">
+  <div class="shell">
+    <div class="sec-head rv">
+      <div class="eyebrow">Other ways in</div><div class="accent-rule"></div>
+      <h2>Not a perfect fit for either?</h2>
+      <p class="lede">These start with an email instead of a form.</p>
+    </div>
+    <div class="cards">
+      <div class="card rv">
+        <h3>Mentor or speak</h3>
+        <p>If you work in finance, banking, or tech, one guest session lands harder than a month of slides. We'll match you to a chapter and a course.</p>
+        <a class="more" href="mailto:thedevfintech@gmail.com?subject=Mentoring%20with%20DevFintech">Email us about mentoring →</a>
+      </div>
+      <div class="card rv">
+        <h3>Sponsor or donate</h3>
+        <p>Funding goes to laptops for students who can't afford one, and to running free events like Compound Hacks. Nobody here draws a salary.</p>
+        <a class="more" href="mailto:thedevfintech@gmail.com?subject=Sponsoring%20DevFintech">Email us about sponsoring →</a>
+      </div>
+      <div class="card rv">
+        <h3>Teachers and administrators</h3>
+        <p>Want this material in an advisory period, elective, or financial literacy requirement? Start with the chapter form and pick your role.</p>
+        <a class="more" href="#/start-a-chapter">Use the chapter form →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+<div class="page" data-route="start-a-chapter" data-title="Work with us | DevFintech" hidden>
+
+<!-- ================= PAGE HERO ================= -->
+<div class="phero">
+  <div class="orb orb-a"></div>
+  <div class="shell">
+    <p class="crumb"><a href="#/home">Home</a> / <a href="#/get-involved">Get involved</a> / Work with us</p>
     <h1>Bring DevFintech to your school.</h1>
     <div class="accent-rule"></div>
     <p class="lede load l1" style="margin-top:1.4rem">Free financial literacy and fintech classes, taught by trained student mentors. Answer a few questions and we'll come back with a plan built around your school, your schedule, and the courses you actually want.</p>
@@ -1601,7 +1722,111 @@ details:not([open]) summary:hover{transform:translateX(4px)}
       <div class="card rv">
         <h3>Teachers and administrators</h3>
         <p>Want this material in an advisory period, an elective, or a financial literacy requirement? Use the form above and pick your role, we'll send what your admin needs to sign off.</p>
-        <a class="more" href="#/get-involved:form">Use the form →</a>
+        <a class="more" href="#/start-a-chapter:form">Use the form →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+<div class="page" data-route="class" data-title="Sign up for a class | DevFintech" hidden>
+
+<!-- ================= PAGE HERO ================= -->
+<div class="phero">
+  <div class="orb orb-a"></div>
+  <div class="shell">
+    <p class="crumb"><a href="#/home">Home</a> / Sign up for a class</p>
+    <h1>Get a student into a class.</h1>
+    <div class="accent-rule"></div>
+    <p class="lede load l1" style="margin-top:1.4rem">Live sessions taught by trained student mentors, over video, at no cost. Fill out the form once and we'll confirm a time that actually works for your family.</p>
+    <div class="phero-facts load l2">
+      <span class="chip">Free</span>
+      <span class="chip">Live, over video</span>
+      <span class="chip">Small groups</span>
+      <span class="chip">Reply within two days</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= THE FORM ================= -->
+<section id="class-form" class="wash tight">
+  <div class="field" data-field="grid"></div>
+  <div class="shell">
+    <div class="wiz-wrap">
+
+      <div class="wiz" id="class-wizard">
+        <noscript>
+          <h2>This form needs JavaScript</h2>
+          <p class="hint">Turn it on and reload, or email us at
+            <a href="mailto:thedevfintech@gmail.com" style="color:var(--accent)">thedevfintech@gmail.com</a>
+            with the student's name, a guardian contact, and which day works best.</p>
+        </noscript>
+      </div>
+
+      <aside class="rail">
+        <div class="box rv">
+          <h4>What happens next</h4>
+          <ol>
+            <li>Guardian gets a confirmation email right away.</li>
+            <li>A real person reviews it and replies within two days.</li>
+            <li>We confirm the class time and send a calendar invite.</li>
+            <li>First session includes a short intro before diving in.</li>
+          </ol>
+        </div>
+        <div class="box rv">
+          <h4>Why we ask for a guardian</h4>
+          <p>Most students registering are minors, so we confirm times and any schedule changes with a parent or guardian, not just the student's own inbox.</p>
+        </div>
+        <div class="box rv">
+          <h4>Not sure it's the right fit?</h4>
+          <p><a href="#/curriculum">Read what each course covers</a> first. Classes run small, so we'll place a student based on age and experience, not just the course they picked.</p>
+        </div>
+        <div class="box rv">
+          <h4>Prefer to just email?</h4>
+          <p>Write to <a href="mailto:thedevfintech@gmail.com">thedevfintech@gmail.com</a> with the student's name, a guardian contact, and the days that work. The form is faster, but this works too.</p>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHAT TO EXPECT ================= -->
+<section>
+  <div class="field" data-field="diamond"></div>
+  <div class="shell">
+    <div class="sec-head rv">
+      <div class="eyebrow">What to expect</div><div class="accent-rule"></div>
+      <h2>Small classes, real conversation.</h2>
+      <p class="lede">This isn't a recorded course. It's a live session with a mentor who was recently a student themselves, and a small enough group that questions actually get answered.</p>
+    </div>
+    <div class="cards">
+      <div class="card rv">
+        <div class="ic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B84E8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+        </div>
+        <h3>A student mentor, not a recording</h3>
+        <p>Every session is live and taught by a trained student educator, chosen through the same application process our chapter leads go through.</p>
+      </div>
+      <div class="card rv">
+        <div class="ic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B84E8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="m7 15 4-4 3 3 5-6"/>
+          </svg>
+        </div>
+        <h3>Paced to the student</h3>
+        <p>Your answers on experience and interest help us place your student in a group that's neither bored nor lost on day one.</p>
+      </div>
+      <div class="card rv">
+        <div class="ic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B84E8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a5 5 0 0 0-5 5v1a4 4 0 0 0-1 7.8V19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2.2A4 4 0 0 0 17 9V8a5 5 0 0 0-5-5Z"/>
+          </svg>
+        </div>
+        <h3>Always free</h3>
+        <p>No tuition, no materials fee, nothing to buy. DevFintech is a nonprofit, and every session runs at no cost to your family.</p>
       </div>
     </div>
   </div>
@@ -1625,7 +1850,7 @@ details:not([open]) summary:hover{transform:translateX(4px)}
       <div>
         <div class="foot-h">Explore</div>
         <div class="foot-links">
-          <a href="#/home">Home</a><a href="#/curriculum">Curriculum</a><a href="#/chapters">Chapters</a><a class="ext" href="https://compoundhacks.dev/" target="_blank" rel="noopener">Hackathon <span style="font-size:.78em">↗</span></a><a href="#/get-involved">Get involved</a>
+          <a href="#/home">Home</a><a href="#/curriculum">Curriculum</a><a class="ext" href="https://compoundhacks.dev/" target="_blank" rel="noopener">Hackathon <span style="font-size:.78em">↗</span></a><a href="#/chapters">Chapters</a><a href="#/get-involved">Get involved</a><a href="#/start-a-chapter">Work with us</a><a href="#/class">Sign up for a class</a>
         </div>
       </div>
       <div>
@@ -1874,7 +2099,7 @@ if (!reduce) {
    on a specific block. Everything lives in the DOM the whole time,
    so switching pages is just a hidden attribute.
 -------------------------------------------------------------------*/
-const ROUTES = ["home", "curriculum", "chapters", "get-involved"];
+const ROUTES = ["home", "curriculum", "chapters", "get-involved", "start-a-chapter", "class"];
 const pages = document.querySelectorAll('.page');
 const navA  = document.querySelectorAll('#navLinks a');
 
@@ -1900,6 +2125,8 @@ function show(route, anchor, animate) {
     if (h) { h.style.animation = 'none'; void h.offsetWidth; h.style.animation = ''; }
   }
 
+  syncHeadCta(route);
+
   const el = anchor && document.getElementById(anchor);
   if (el) {
     const y = el.getBoundingClientRect().top + scrollY - 90;
@@ -1908,7 +2135,7 @@ function show(route, anchor, animate) {
     scrollTo({ top: 0, behavior: 'auto' });
   }
   drawProgress();
-  if (route === 'get-involved' && window.__wizRefresh) window.__wizRefresh();
+  if (window.__wizRefresh && window.__wizRefresh[route]) window.__wizRefresh[route]();
   if (animate && window.__markKick) window.__markKick();
 }
 
@@ -1916,6 +2143,21 @@ function readHash(animate) {
   const raw = location.hash.replace(/^#\/?/, '');
   const [route, anchor] = raw.split(':');
   show(route || 'home', anchor, animate);
+}
+
+/* the header CTA is shared across every page, so it swaps its own
+   text and target to match whichever page is currently showing */
+const HEAD_CTA = {
+  'get-involved':    ['See your options', '#/get-involved:options'],
+  'start-a-chapter': ['Jump to the form', '#/start-a-chapter:form'],
+  'class':           ['Jump to the form', '#/class:class-form'],
+};
+function syncHeadCta(route) {
+  const cta = document.getElementById('headCta');
+  if (!cta) return;
+  const [label, href] = HEAD_CTA[route] || ['Sign up', '#/class'];
+  cta.textContent = label;
+  cta.setAttribute('href', href);
 }
 
 addEventListener('hashchange', () => readHash(true));
@@ -2004,8 +2246,8 @@ function meter() {
 }
 
 function placeDot() {
-  const live = document.getElementById("live");
-  const dot = document.getElementById("dot");
+  const live = card.querySelector("#live");
+  const dot = card.querySelector("#dot");
   if (!live || !dot) return;
   const total = plannedSteps().length;
   const p = total ? idx / total : 0;
@@ -2195,8 +2437,8 @@ const screens = {
 
 /* ---------- validation ---------- */
 function fail(id, msg) {
-  document.getElementById("f-" + id)?.classList.add("invalid");
-  const e = document.getElementById("e-" + id);
+  card.querySelector("#f-" + id)?.classList.add("invalid");
+  const e = card.querySelector("#e-" + id);
   if (e) { e.textContent = msg; e.classList.add("show"); }
   return false;
 }
@@ -2209,7 +2451,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 function validate(step) {
   clearErrors();
-  const v = id => (document.getElementById(id)?.value || "").trim();
+  const v = id => (card.querySelector("#" + id)?.value || "").trim();
 
   if (step === "path")   return state.path ? alertPickClear() : alertPick("Pick one to continue.");
   if (step === "topics") return state.topics.length ? alertPickClear() : alertPick("Pick at least one course. You can add more later.");
@@ -2289,7 +2531,7 @@ function alertPickClear() { notice?.remove(); notice = null; return true; }
 
 /* ---------- submit ---------- */
 async function submit() {
-  const btn = document.getElementById("next");
+  const btn = card.querySelector("#next");
   btn.disabled = true;
   btn.textContent = "Sending…";
 
@@ -2335,7 +2577,7 @@ function render(scroll) {
         const at = list.indexOf(val);
         if (at > -1) list.splice(at, 1); else list.push(val);
         b.setAttribute("aria-pressed", list.includes(val));
-        const c = document.getElementById("count");
+        const c = card.querySelector("#count");
         if (c) c.textContent = `${list.length} selected`;
       } else {
         state[key] = val;
@@ -2346,14 +2588,14 @@ function render(scroll) {
     });
   });
 
-  document.getElementById("next")?.addEventListener("click", () => {
+  card.querySelector("#next")?.addEventListener("click", () => {
     if (step === "review") return submit();
     if (!validate(step)) return;
     idx++;
     render(true);
   });
 
-  document.getElementById("back")?.addEventListener("click", () => {
+  card.querySelector("#back")?.addEventListener("click", () => {
     idx = Math.max(0, idx - 1);
     render(true);
   });
@@ -2368,7 +2610,7 @@ function render(scroll) {
 /* Enter advances from text fields */
 card.addEventListener("keydown", e => {
   if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
-    const n = document.getElementById("next");
+    const n = card.querySelector("#next");
     if (n && !n.disabled) { e.preventDefault(); n.click(); }
   }
 });
@@ -2376,8 +2618,401 @@ card.addEventListener("keydown", e => {
 render(false);
 
 /* Lets a single-file router nudge the meter after the page becomes visible,
-   since geometry read while hidden can come back wrong in some browsers. */
-window.__wizRefresh = () => placeDot();
+   since geometry read while hidden can come back wrong in some browsers.
+   Keyed by route, since the class-signup wizard registers its own entry
+   here too and the two must not overwrite each other. */
+window.__wizRefresh = window.__wizRefresh || {};
+window.__wizRefresh['start-a-chapter'] = () => placeDot();
+
+</script>
+
+<script>
+/* ------------------------------------------------------------------
+   DevFintech class registration wizard
+   Mounts into <div id="wizard"></div> on class.html
+
+   SUBMIT_ENDPOINT is a deployed Google Apps Script /exec URL, kept
+   separate from the chapter-request wizard's endpoint since this
+   form has an entirely different shape (student + guardian info)
+   and should land in its own sheet. Leave blank to test, submissions
+   log to the console instead.
+------------------------------------------------------------------- */
+const SUBMIT_ENDPOINT = "";
+
+const state = {
+  studentFirst: "", studentLast: "", studentEmail: "", studentPhone: "",
+  guardianFirst: "", guardianLast: "", guardianEmail: "", guardianPhone: "",
+  country: "", state_: "",
+  heard: "",
+  experience: "",
+  schedule: "", other: "",
+  message: ""
+};
+
+const HEARD = [
+  "A friend or classmate", "School or teacher", "Instagram or social media",
+  "Search engine", "A DevFintech event or hackathon", "Other"
+];
+
+const SCHEDULE = [
+  ["mon", "Monday", "4:30PM to 5:30PM PST"],
+  ["tue", "Tuesday", "5:00PM to 6:00PM PST"],
+  ["other", "Other", "Tell us your time zone, day, and time"]
+];
+
+/* ordered steps */
+const STEPS = ["student", "guardian", "location", "background", "schedule", "message", "review"];
+
+let idx = 0;
+const card = document.getElementById("class-wizard");
+
+/* ---------- progress meter, the compounding curve ---------- */
+const CURVE_D = "M4,40 C60,39 108,35 148,27 S222,7 296,3";
+
+function meter() {
+  const total = STEPS.length;
+  const p = total ? idx / total : 0;
+  return `
+  <div class="meter">
+    <div class="curve-wrap">
+      <svg class="mcurve" viewBox="0 0 300 44" preserveAspectRatio="none" aria-hidden="true">
+        <path class="curve-track" d="${CURVE_D}" />
+        <path class="curve-live" id="live" d="${CURVE_D}" pathLength="1"
+              stroke-dasharray="1" stroke-dashoffset="${1 - p}" />
+        <circle class="curve-dot" id="dot" r="4.5" cx="0" cy="0" />
+      </svg>
+    </div>
+    <span class="step-count">${idx} / ${total}</span>
+  </div>`;
+}
+
+function placeDot() {
+  const live = card.querySelector("#live");
+  const dot = card.querySelector("#dot");
+  if (!live || !dot) return;
+  const p = STEPS.length ? idx / STEPS.length : 0;
+  const pt = live.getPointAtLength(live.getTotalLength() * p);
+  dot.setAttribute("cx", pt.x);
+  dot.setAttribute("cy", pt.y);
+  dot.style.opacity = p > 0 ? 1 : 0;
+}
+
+/* ---------- small builders ---------- */
+const opt = (val, key, title, sub) => `
+  <button class="opt" data-key="${key}" data-val="${val}" aria-pressed="${state[key] === val}">
+    <span class="row">
+      <span>${title}${sub ? `<small>${sub}</small>` : ""}</span>
+      <span class="tick"></span>
+    </span>
+  </button>`;
+
+const field = (id, label, html, required = true) => `
+  <div class="wfield" id="f-${id}">
+    <label for="${id}">${label}${required ? "" : ` <span class="muted" style="font-weight:400">(optional)</span>`}</label>
+    ${html}
+    <p class="err" id="e-${id}"></p>
+  </div>`;
+
+const sel = (id, list, current, placeholder = "Select one") => `
+  <select id="${id}">
+    <option value="">${placeholder}</option>
+    ${list.map(o => `<option ${current === o ? "selected" : ""}>${o}</option>`).join("")}
+  </select>`;
+
+const nav = (primary = "Continue") => `
+  <div class="wnav">
+    ${idx > 0 ? `<button class="btn btn-ghost" id="back">Back</button>` : ""}
+    <span class="spacer"></span>
+    <button class="btn btn-primary" id="next">${primary} <span class="arw">→</span></button>
+  </div>`;
+
+/* ---------- screens ---------- */
+const screens = {
+  student: () => `
+    <div class="screen">
+      <h2>Who's the student?</h2>
+      <p class="hint">Just the basics, we'll get to scheduling in a minute.</p>
+      ${field("studentFirst", "Student's first name", `<input type="text" id="studentFirst" value="${state.studentFirst}" autocomplete="given-name">`)}
+      ${field("studentLast", "Student's last name", `<input type="text" id="studentLast" value="${state.studentLast}" autocomplete="family-name">`)}
+      ${field("studentEmail", "Student's email", `<input type="email" id="studentEmail" value="${state.studentEmail}" placeholder="student@email.com" autocomplete="email">`, false)}
+      ${field("studentPhone", "Student's phone number", `<input type="tel" id="studentPhone" value="${state.studentPhone}" placeholder="(408) 555-0134" autocomplete="tel">`, false)}
+      ${nav()}
+    </div>`,
+
+  guardian: () => `
+    <div class="screen">
+      <h2>Who's the guardian?</h2>
+      <p class="hint">This is who we'll confirm the class time with and reach if a session changes.</p>
+      ${field("guardianFirst", "Guardian's first name", `<input type="text" id="guardianFirst" value="${state.guardianFirst}" autocomplete="given-name">`)}
+      ${field("guardianLast", "Guardian's last name", `<input type="text" id="guardianLast" value="${state.guardianLast}" autocomplete="family-name">`)}
+      ${field("guardianEmail", "Guardian's email", `<input type="email" id="guardianEmail" value="${state.guardianEmail}" placeholder="you@email.com" autocomplete="email">`)}
+      ${field("guardianPhone", "Guardian's phone number", `<input type="tel" id="guardianPhone" value="${state.guardianPhone}" placeholder="(408) 555-0134" autocomplete="tel">`)}
+      ${nav()}
+    </div>`,
+
+  location: () => `
+    <div class="screen">
+      <h2>Where are you located?</h2>
+      <p class="hint">Sessions run over video, so this just tells us the time zone to plan around.</p>
+      ${field("country", "Country", `<input type="text" id="country" value="${state.country}" placeholder="United States" autocomplete="country-name">`)}
+      ${field("state_", "State or province", `<input type="text" id="state_" value="${state.state_}" placeholder="California" autocomplete="address-level1">`)}
+      ${nav()}
+    </div>`,
+
+  background: () => `
+    <div class="screen">
+      <h2>A bit of background</h2>
+      <p class="hint">Helps us place the student in the right group and pace the first few sessions.</p>
+      ${field("heard", "How did you hear about us", sel("heard", HEARD, state.heard, "Select an answer"))}
+      ${field("experience", "Prior experience with these topics, and what you're most interested in",
+        `<textarea id="experience" placeholder="e.g. never budgeted before, curious about investing and coding">${state.experience}</textarea>`)}
+      ${nav()}
+    </div>`,
+
+  schedule: () => `
+    <div class="screen">
+      <h2>What days will you attend?</h2>
+      <p class="hint">Pick a slot below, or tell us a time that works better and we'll try to accommodate it.</p>
+      <div class="opts">
+        ${SCHEDULE.map(([v, t, s]) => opt(v, "schedule", t, s)).join("")}
+      </div>
+      ${state.schedule === "other" ? field("other", "Your time zone, day, and time",
+        `<textarea id="other" placeholder="e.g. GMT+1, Wednesdays, 6:00 to 7:00 PM">${state.other}</textarea>`) : ""}
+      ${nav()}
+    </div>`,
+
+  message: () => `
+    <div class="screen">
+      <h2>Anything else we should know?</h2>
+      <p class="hint">Optional. Skip it if there's nothing else to add.</p>
+      ${field("message", "Add a message",
+        `<textarea id="message" placeholder="Accessibility needs, sibling also signing up, anything else">${state.message}</textarea>`, false)}
+      ${nav("Review")}
+    </div>`,
+
+  review: () => {
+    const scheduleLabel = state.schedule === "other"
+      ? `Other · ${state.other}`
+      : (SCHEDULE.find(s => s[0] === state.schedule) || [, "—"])[1] + " · " +
+        (SCHEDULE.find(s => s[0] === state.schedule) || [, , ""])[2];
+
+    const rows = [
+      ["Student", `${state.studentFirst} ${state.studentLast}`],
+      ["Student email", state.studentEmail || `<span class="muted">Not provided</span>`],
+      ["Student phone", state.studentPhone || `<span class="muted">Not provided</span>`],
+      ["Guardian", `${state.guardianFirst} ${state.guardianLast}`],
+      ["Guardian email", state.guardianEmail],
+      ["Guardian phone", state.guardianPhone],
+      ["Location", `${state.country}, ${state.state_}`],
+      ["Heard about us", state.heard],
+      ["Experience", state.experience],
+      ["Schedule", scheduleLabel],
+      ["Message", state.message || `<span class="muted">None added</span>`]
+    ];
+
+    return `
+    <div class="screen">
+      <h2>Check this over</h2>
+      <p class="hint">Go back and change anything that looks wrong.</p>
+      <div class="summary">
+        ${rows.map(([k, v]) => `<div class="rrow"><span class="rkey">${k}</span><span class="rval">${v}</span></div>`).join("")}
+      </div>
+      ${nav("Send registration")}
+    </div>`;
+  },
+
+  done: () => `
+    <div class="screen">
+      <div class="badge"></div>
+      <h2>Registration sent.</h2>
+      <p class="hint" style="margin-bottom:1.2rem">A confirmation is on its way to <strong>${state.guardianEmail}</strong>. We'll follow up to confirm the class time within a couple of days.</p>
+      <div class="phero-facts" style="margin-top:0">
+        <span class="chip">Registration received</span>
+        <span class="chip">Free</span>
+      </div>
+      <div class="wnav">
+        <a class="btn btn-ghost" href="#/curriculum">See the curriculum</a>
+        <span class="spacer"></span>
+        <a class="btn btn-primary" href="#/home">Back to home <span class="arw">→</span></a>
+      </div>
+    </div>`
+};
+
+/* ---------- validation ---------- */
+function fail(id, msg) {
+  card.querySelector("#f-" + id)?.classList.add("invalid");
+  const e = card.querySelector("#e-" + id);
+  if (e) { e.textContent = msg; e.classList.add("show"); }
+  return false;
+}
+function clearErrors() {
+  card.querySelectorAll(".wfield").forEach(f => f.classList.remove("invalid"));
+  card.querySelectorAll(".err").forEach(e => e.classList.remove("show"));
+}
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+function validate(step) {
+  clearErrors();
+  const v = id => (card.querySelector("#" + id)?.value || "").trim();
+
+  if (step === "student") {
+    let ok = true;
+    state.studentFirst = v("studentFirst"); state.studentLast = v("studentLast");
+    state.studentEmail = v("studentEmail"); state.studentPhone = v("studentPhone");
+    if (!state.studentFirst) ok = fail("studentFirst", "Enter the student's first name.");
+    if (!state.studentLast) ok = fail("studentLast", "Enter the student's last name.");
+    if (state.studentEmail && !EMAIL_RE.test(state.studentEmail))
+      ok = fail("studentEmail", "That email address isn't valid.");
+    return ok;
+  }
+
+  if (step === "guardian") {
+    let ok = true;
+    state.guardianFirst = v("guardianFirst"); state.guardianLast = v("guardianLast");
+    state.guardianEmail = v("guardianEmail"); state.guardianPhone = v("guardianPhone");
+    if (!state.guardianFirst) ok = fail("guardianFirst", "Enter the guardian's first name.");
+    if (!state.guardianLast) ok = fail("guardianLast", "Enter the guardian's last name.");
+    if (!EMAIL_RE.test(state.guardianEmail))
+      ok = fail("guardianEmail", state.guardianEmail ? "That email address isn't valid." : "Enter the guardian's email.");
+    if (state.guardianPhone.replace(/\D/g, "").length < 7)
+      ok = fail("guardianPhone", state.guardianPhone ? "Add a full phone number." : "Enter the guardian's phone number.");
+    return ok;
+  }
+
+  if (step === "location") {
+    let ok = true;
+    state.country = v("country"); state.state_ = v("state_");
+    if (!state.country) ok = fail("country", "Enter a country.");
+    if (!state.state_) ok = fail("state_", "Enter a state or province.");
+    return ok;
+  }
+
+  if (step === "background") {
+    let ok = true;
+    state.heard = v("heard"); state.experience = v("experience");
+    if (!state.heard) ok = fail("heard", "Let us know how you heard about us.");
+    if (!state.experience) ok = fail("experience", "A sentence or two is plenty.");
+    return ok;
+  }
+
+  if (step === "schedule") {
+    if (!state.schedule) return alertPick("Pick a day, or choose \u201cOther\u201d and tell us what works.");
+    if (state.schedule === "other") {
+      state.other = v("other");
+      if (!state.other) return fail("other", "Tell us the time zone, day, and time you'd like.");
+    }
+    return alertPickClear();
+  }
+
+  if (step === "message") {
+    state.message = v("message").slice(0, 1000);
+    return true;
+  }
+
+  return true;
+}
+
+/* inline notice for the schedule screen, which has no field to hang an error on */
+let notice = null;
+function alertPick(msg) {
+  const opts = card.querySelector(".opts");
+  if (opts && !notice) {
+    notice = document.createElement("p");
+    notice.className = "err show";
+    notice.style.marginBottom = "18px";
+    notice.textContent = msg;
+    opts.after(notice);
+  }
+  return false;
+}
+function alertPickClear() { notice?.remove(); notice = null; return true; }
+
+/* ---------- submit ---------- */
+async function submit() {
+  const btn = card.querySelector("#next");
+  btn.disabled = true;
+  btn.textContent = "Sending…";
+
+  const payload = {
+    ...state,
+    schedule: state.schedule === "other"
+      ? "Other: " + state.other
+      : (SCHEDULE.find(s => s[0] === state.schedule) || [, ""])[1] + " " +
+        (SCHEDULE.find(s => s[0] === state.schedule) || [, , ""])[2],
+    source: "devfintech-class-registration",
+    submittedAt: new Date().toISOString()
+  };
+
+  try {
+    if (SUBMIT_ENDPOINT) {
+      const res = await fetch(SUBMIT_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error(res.status);
+    } else {
+      console.log("Registration (no endpoint set):", payload);
+      await new Promise(r => setTimeout(r, 450));
+    }
+    card.innerHTML = screens.done();
+  } catch (err) {
+    btn.disabled = false;
+    btn.innerHTML = 'Send registration <span class="arw">→</span>';
+    alertPick("That didn't send. Check your connection and try again.");
+  }
+}
+
+/* ---------- render + wiring ---------- */
+function render(scroll) {
+  notice = null;
+  const step = STEPS[idx];
+  card.innerHTML = meter() + screens[step]();
+  placeDot();
+
+  card.querySelectorAll(".opt").forEach(b => {
+    b.addEventListener("click", () => {
+      state[b.dataset.key] = b.dataset.val;
+      card.querySelectorAll(`.opt[data-key="${b.dataset.key}"]`)
+          .forEach(o => o.setAttribute("aria-pressed", o === b));
+      alertPickClear();
+      if (b.dataset.key === "schedule") render(false); // reveal/hide the "other" field
+    });
+  });
+
+  card.querySelector("#next")?.addEventListener("click", () => {
+    if (step === "review") return submit();
+    if (!validate(step)) return;
+    idx++;
+    render(true);
+  });
+
+  card.querySelector("#back")?.addEventListener("click", () => {
+    idx = Math.max(0, idx - 1);
+    render(true);
+  });
+
+  if (scroll) {
+    const y = card.getBoundingClientRect().top + scrollY - 100;
+    if (scrollY > y) scrollTo({ top: y, behavior: "smooth" });
+  }
+  card.querySelector("input,select,textarea")?.focus({ preventScroll: true });
+}
+
+card.addEventListener("keydown", e => {
+  if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
+    const n = card.querySelector("#next");
+    if (n && !n.disabled) { e.preventDefault(); n.click(); }
+  }
+});
+
+render(false);
+
+/* Lets a single-file router nudge the meter after the page becomes visible.
+   Keyed by route, alongside the chapter wizard's own entry. */
+window.__wizRefresh = window.__wizRefresh || {};
+window.__wizRefresh['class'] = () => placeDot();
 
 </script>
 </body>
