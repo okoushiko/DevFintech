@@ -594,11 +594,12 @@ header{opacity:0;animation:fadeIn .8s .05s ease forwards}
    you've read a word.
    ===============================================================*/
 :root{--accent:#1B84E8;--accent-2:#8FC9F5;--pnum:"01";--plabel:"Home"}
-body[data-page="curriculum"]  {--accent:#0E6BD6;--accent-2:#7FB6EE;--pnum:"02";--plabel:"Curriculum"}
-body[data-page="chapters"]    {--accent:#0B3A85;--accent-2:#8AAAD6;--pnum:"03";--plabel:"Chapters"}
-body[data-page="get-involved"]    {--accent:#0E6BD6;--accent-2:#7FB6EE;--pnum:"04";--plabel:"Get involved"}
-body[data-page="start-a-chapter"] {--accent:#0A4FAF;--accent-2:#7CA5DF;--pnum:"05";--plabel:"Work with us"}
-body[data-page="class"]           {--accent:#1B84E8;--accent-2:#8FC9F5;--pnum:"06";--plabel:"Sign up for a class"}
+body[data-page="curriculum"]      {--accent:#196CD0;--accent-2:#7FB6EE;--pnum:"02";--plabel:"Curriculum"}
+body[data-page="chapters"]        {--accent:#1762BE;--accent-2:#7CA5DF;--pnum:"03";--plabel:"Chapters"}
+body[data-page="about"]           {--accent:#1559AC;--accent-2:#78A0DA;--pnum:"04";--plabel:"About"}
+body[data-page="get-involved"]    {--accent:#134F9A;--accent-2:#7395D2;--pnum:"05";--plabel:"Get involved"}
+body[data-page="start-a-chapter"] {--accent:#104688;--accent-2:#6E8FCB;--pnum:"06";--plabel:"Work with us"}
+body[data-page="class"]           {--accent:#1B84E8;--accent-2:#8FC9F5;--pnum:"07";--plabel:"Sign up for a class"}
 
 /* accent takes over everywhere the brand blue was decorative */
 .eyebrow{color:var(--accent)}
@@ -656,7 +657,7 @@ nav.links a:focus-visible{outline-offset:2px;border-radius:100px}
 /* each page opens over a wash of its own colour */
 .phero{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 11%,transparent),transparent 88%)}
 .phero .crumb::after{
-  content:" · " var(--pnum) " of 06";
+  content:" · " var(--pnum) " of 07";
   color:var(--slate);
 }
 
@@ -776,7 +777,13 @@ details summary{transition:color .2s ease,transform .25s cubic-bezier(.2,.8,.26,
 details:not([open]) summary:hover{transform:translateX(4px)}
 
 /* ---- the whole page arrives in sequence on a route change ---- */
-.page-swap .shell > *{animation:sectionIn .55s cubic-bezier(.2,.78,.26,1) backwards}
+/* ---- the whole page arrives in sequence on a route change ---- */
+/* fill-mode is "both", not "backwards": elements like the hero lede and
+   fact chips carry their own base opacity:0 (from .load, waiting on their
+   own riseIn animation). With "backwards" this rule's animation ends and
+   hands control back to that base opacity:0, permanently hiding them.
+   "both" keeps the animation's own end state (opacity:1) in force. */
+.page-swap .shell > *{animation:sectionIn .55s cubic-bezier(.2,.78,.26,1) both}
 .page-swap .shell > *:nth-child(2){animation-delay:.06s}
 .page-swap .shell > *:nth-child(3){animation-delay:.12s}
 @keyframes sectionIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
@@ -813,6 +820,24 @@ details:not([open]) summary:hover{transform:translateX(4px)}
   .risefield circle{animation:none;opacity:.28}
 }
 
+/* ---------- about page: team cards ---------- */
+.team-cards{grid-template-columns:repeat(3,1fr)}
+@media(max-width:880px){.team-cards{grid-template-columns:1fr}}
+.team-card{text-align:left}
+.avatar{
+  width:54px;height:54px;border-radius:50%;
+  display:grid;place-items:center;margin-bottom:1.1rem;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  color:#fff;font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.02em;
+  box-shadow:0 10px 22px -14px var(--accent);
+}
+.team-card h3{margin-bottom:.25rem}
+.team-card .role{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.8rem;
+}
+.team-card p{color:var(--slate);font-size:.94rem}
+
 /* ---------- single-file router ---------- */
 [hidden]{display:none!important}
 
@@ -831,6 +856,7 @@ details:not([open]) summary:hover{transform:translateX(4px)}
       <a href="#/home">Home</a>
       <a href="#/curriculum">Curriculum</a>
       <a href="#/chapters">Chapters</a>
+      <a href="#/about">About</a>
       <a class="ext" href="https://compoundhacks.dev/" target="_blank" rel="noopener">Hackathon <span style="font-size:.78em">↗</span></a>
       <a href="#/get-involved">Get involved</a>
     </nav>
@@ -1541,6 +1567,133 @@ details:not([open]) summary:hover{transform:translateX(4px)}
 </section>
 
 </div>
+<div class="page" data-route="about" data-title="About | DevFintech" hidden>
+
+<!-- ================= PAGE HERO ================= -->
+<div class="phero">
+  <div class="orb orb-a"></div>
+  <div class="shell">
+    <p class="crumb"><a href="#/home">Home</a> / About</p>
+    <h1>Run by the students it teaches.</h1>
+    <div class="accent-rule"></div>
+    <p class="lede load l1" style="margin-top:1.4rem">DevFintech started because none of us were taught this in school either. We're a student-run nonprofit now recognized by the California Secretary of State, built and led by high schoolers who write the curriculum, teach the classes, and run the chapters themselves.</p>
+    <div class="phero-facts load l2">
+      <span class="chip">Student-run</span>
+      <span class="chip">Nonprofit</span>
+      <span class="chip">60+ chapters</span>
+      <span class="chip">Recognized by CA SOS</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= TEAM ================= -->
+<section class="wash tight">
+  <div class="field" data-field="net"></div>
+  <div class="shell">
+    <div class="sec-head rv">
+      <div class="eyebrow">Leadership</div><div class="accent-rule"></div>
+      <h2>The team running it.</h2>
+      <p class="lede">Three students, three jobs. Everything from the curriculum to the chapter network to who hears about us in the first place runs through this team.</p>
+    </div>
+
+    <div class="cards team-cards">
+      <div class="card rv team-card">
+        <div class="avatar" aria-hidden="true">AM</div>
+        <h3>Ayannah Mundy</h3>
+        <div class="role">President</div>
+        <p>Sets the direction for DevFintech as a whole and represents the organization to schools, sponsors, and partners.</p>
+      </div>
+
+      <div class="card rv team-card">
+        <div class="avatar" aria-hidden="true">KO</div>
+        <h3>Koushik Omprakash</h3>
+        <div class="role">VP &amp; Developer</div>
+        <p>Builds and maintains everything DevFintech runs on, from the chapter site to the signup and registration systems.</p>
+      </div>
+
+      <div class="card rv team-card">
+        <div class="avatar" aria-hidden="true">SB</div>
+        <h3>Sai Balu</h3>
+        <div class="role">Outreach</div>
+        <p>Connects DevFintech with new schools and chapters, and makes sure students actually hear that this exists.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW WE STARTED ================= -->
+<section>
+  <div class="field" data-field="diamond"></div>
+  <div class="shell mission-grid">
+    <div class="rv rv-l">
+      <div class="eyebrow">How we started</div><div class="accent-rule"></div>
+      <h2 style="margin:1rem 0 1.1rem">Nobody taught us this either.</h2>
+      <p class="lede">DevFintech began the same way most of our chapters do now: a small group of students who noticed nobody in their school actually understood money, and decided to fix that themselves instead of waiting for a class that was never going to appear on the schedule.</p>
+      <p class="lede" style="margin-top:1.1rem">What started as one club has grown into a nonprofit with 60+ chapters and more than 1,500 students taught, all still run the same way, students teaching students, for free.</p>
+    </div>
+    <div class="rv rv-r">
+      <div class="pullquote">
+        We're not waiting for financial literacy to show up in the curriculum. We're just teaching it.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VALUES ================= -->
+<section class="wash">
+  <div class="field" data-field="ring"></div>
+  <div class="shell">
+    <div class="sec-head rv">
+      <div class="eyebrow">What we hold to</div><div class="accent-rule"></div>
+      <h2>A few things that don't change.</h2>
+    </div>
+    <div class="cards">
+      <div class="card rv">
+        <div class="ic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B84E8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a5 5 0 0 0-5 5v1a4 4 0 0 0-1 7.8V19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2.2A4 4 0 0 0 17 9V8a5 5 0 0 0-5-5Z"/>
+          </svg>
+        </div>
+        <h3>Always free</h3>
+        <p>No tuition, no paywalled material, no upsell hiding behind the free class. This has never changed and isn't going to.</p>
+      </div>
+      <div class="card rv">
+        <div class="ic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B84E8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+        </div>
+        <h3>Taught by students</h3>
+        <p>Every class is taught by a trained student mentor, not a recording and not an adult reading slides at kids.</p>
+      </div>
+      <div class="card rv">
+        <div class="ic">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1B84E8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m8 17-5-5 5-5"/><path d="m16 7 5 5-5 5"/>
+          </svg>
+        </div>
+        <h3>Open to any school</h3>
+        <p>Any student can start a chapter or bring us into a club they already run. The network only grows because people do exactly that.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="cta-halo">
+  <div class="field" data-field="rise"></div>
+  <div class="shell close-cta rv">
+    <div class="eyebrow">Get involved</div><div class="accent-rule" style="margin-inline:auto"></div>
+    <h2>Want to be part of this?</h2>
+    <p class="lede">Sign a student up for a class, or bring DevFintech to your own school.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#/get-involved">Get involved <span class="arw">→</span></a>
+      <a class="btn btn-ghost" href="mailto:thedevfintech@gmail.com">Email us</a>
+    </div>
+  </div>
+</section>
+
+</div>
 <div class="page" data-route="get-involved" data-title="Get involved | DevFintech" hidden>
 
 <!-- ================= PAGE HERO ================= -->
@@ -1867,7 +2020,7 @@ details:not([open]) summary:hover{transform:translateX(4px)}
       <div>
         <div class="foot-h">Explore</div>
         <div class="foot-links">
-          <a href="#/home">Home</a><a href="#/curriculum">Curriculum</a><a class="ext" href="https://compoundhacks.dev/" target="_blank" rel="noopener">Hackathon <span style="font-size:.78em">↗</span></a><a href="#/chapters">Chapters</a><a href="#/get-involved">Get involved</a><a href="#/start-a-chapter">Work with us</a><a href="#/class">Sign up for a class</a>
+          <a href="#/home">Home</a><a href="#/curriculum">Curriculum</a><a href="#/chapters">Chapters</a><a class="ext" href="https://compoundhacks.dev/" target="_blank" rel="noopener">Hackathon <span style="font-size:.78em">↗</span></a><a href="#/about">About</a><a href="#/get-involved">Get involved</a><a href="#/start-a-chapter">Work with us</a><a href="#/class">Sign up for a class</a>
         </div>
       </div>
       <div>
@@ -2126,7 +2279,7 @@ if (!reduce) {
    on a specific block. Everything lives in the DOM the whole time,
    so switching pages is just a hidden attribute.
 -------------------------------------------------------------------*/
-const ROUTES = ["home", "curriculum", "chapters", "get-involved", "start-a-chapter", "class"];
+const ROUTES = ["home", "curriculum", "chapters", "about", "get-involved", "start-a-chapter", "class"];
 const pages = document.querySelectorAll('.page');
 const navA  = document.querySelectorAll('#navLinks a');
 
