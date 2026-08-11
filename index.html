@@ -796,6 +796,23 @@ details:not([open]) summary:hover{transform:translateX(4px)}
 .choice-card:hover .choice-eyebrow{color:var(--accent)}
 .choice-card{color:var(--ink)}
 
+/* 5. rising dots, standing in for the sweep effect behind sign-up forms.
+   Meant to read as coins or compounding growth drifting slowly upward. */
+.risefield{
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent);
+  mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent);
+}
+.risefield circle{fill:rgba(27,132,232,.32);animation:riseUp 9s ease-in infinite}
+@keyframes riseUp{
+  0%{transform:translateY(0);opacity:0}
+  10%{opacity:.85}
+  85%{opacity:.65}
+  100%{transform:translateY(-320px);opacity:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .risefield circle{animation:none;opacity:.28}
+}
+
 /* ---------- single-file router ---------- */
 [hidden]{display:none!important}
 
@@ -1543,7 +1560,7 @@ details:not([open]) summary:hover{transform:translateX(4px)}
 
 <!-- ================= THE FORK ================= -->
 <section id="options" class="wash tight">
-  <div class="field" data-field="grid"></div>
+  <div class="field" data-field="rise"></div>
   <div class="shell">
     <div class="cards two">
 
@@ -1656,7 +1673,7 @@ details:not([open]) summary:hover{transform:translateX(4px)}
 
 <!-- ================= THE FORM ================= -->
 <section id="form" class="wash tight">
-  <div class="field" data-field="grid"></div>
+  <div class="field" data-field="rise"></div>
   <div class="shell">
     <div class="wiz-wrap">
 
@@ -1750,7 +1767,7 @@ details:not([open]) summary:hover{transform:translateX(4px)}
 
 <!-- ================= THE FORM ================= -->
 <section id="class-form" class="wash tight">
-  <div class="field" data-field="grid"></div>
+  <div class="field" data-field="rise"></div>
   <div class="shell">
     <div class="wiz-wrap">
 
@@ -1938,7 +1955,18 @@ const FIELD_BUILDERS = {
     </svg>`;
   },
   grid() { return ''; },
-  ring() { return '<span></span><span></span><span></span>'; }
+  ring() { return '<span></span><span></span><span></span>'; },
+  /* rising dots, standing in for the sweep effect on the sign-up sections */
+  rise() {
+    const dots = [
+      [80, 420, 5, 0.0], [220, 380, 4, 1.1], [360, 440, 6, 2.3], [500, 400, 4, 0.4],
+      [640, 430, 5, 3.1], [780, 390, 4, 1.8], [920, 420, 6, 0.9], [1060, 400, 4, 2.6],
+      [1200, 440, 5, 1.4], [1320, 380, 4, 3.4]
+    ];
+    return `<svg viewBox="0 0 1400 460" preserveAspectRatio="xMidYMid slice">
+      ${dots.map(([x, y, r, d]) => `<circle cx="${x}" cy="${y}" r="${r}" style="animation-delay:${d}s"/>`).join('')}
+    </svg>`;
+  }
 };
 
 document.querySelectorAll('.field[data-field]').forEach(el => {
@@ -2093,7 +2121,6 @@ if (!reduce) {
   };
 }
 
-
 /* ---------- hash router -------------------------------------------
    Routes look like #/curriculum, or #/curriculum:behavioral to land
    on a specific block. Everything lives in the DOM the whole time,
@@ -2166,6 +2193,7 @@ readHash(false);
 </script>
 
 <script>
+(function(){
 /* ------------------------------------------------------------------
    DevFintech chapter request wizard
    Mounts into <div id="wizard"></div> on get-involved.html
@@ -2624,9 +2652,11 @@ render(false);
 window.__wizRefresh = window.__wizRefresh || {};
 window.__wizRefresh['start-a-chapter'] = () => placeDot();
 
+})();
 </script>
 
 <script>
+(function(){
 /* ------------------------------------------------------------------
    DevFintech class registration wizard
    Mounts into <div id="wizard"></div> on class.html
@@ -3014,6 +3044,7 @@ render(false);
 window.__wizRefresh = window.__wizRefresh || {};
 window.__wizRefresh['class'] = () => placeDot();
 
+})();
 </script>
 </body>
 </html>
