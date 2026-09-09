@@ -1915,6 +1915,13 @@ readHash(false);
 ------------------------------------------------------------------- */
 const SUBMIT_ENDPOINT = "https://script.google.com/macros/s/AKfycbwbr0it2JzId1e5F7I5JIS0HAWMubTPf2p9mcf2ueZvy__0UNdR3y9DiEFdmmdZOeU4/exec";
 
+/* ------------------------------------------------------------------
+   Discord webhook: paste the URL from
+   Channel Settings > Integrations > Webhooks > New Webhook > Copy Webhook URL
+   Leave blank to skip the Discord ping.
+------------------------------------------------------------------- */
+const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1547307051003281429/7ySLLiwrwUvzgGtgsxefwAkU3SNlwlUzNg8eDYgb_pGhHCE0rO21L7uejK5siW8kEvgB";
+
 const state = {
   path: null,
   schoolName: "", location: "", yourRole: "", grades: "",
@@ -2269,6 +2276,44 @@ function alertPick(msg) {
 }
 function alertPickClear() { notice?.remove(); notice = null; return true; }
 
+/* fire-and-forget ping to Discord, never blocks or breaks the real submit */
+function notifyDiscord(payload) {
+  if (!DISCORD_WEBHOOK) return;
+  const line = (label, value) => `**${label}:** ${value || "—"}`;
+  const group = payload.path === "chapter"
+    ? line("Founding team", payload.teamSize) + "\n" + line("Advisor", payload.advisor)
+    : line("Group", `${payload.clubName} · ${payload.clubSize}`) + "\n" + line("Meets", payload.meets);
+
+  const description = [
+    line("Request", payload.path === "chapter" ? "Start a new chapter" : "Teach an existing club or class"),
+    line("School", payload.schoolName),
+    line("Location", payload.location),
+    line("Role", payload.yourRole),
+    line("Students", payload.grades),
+    group,
+    line("Courses", payload.topics),
+    line("Format", `${payload.format} · ${payload.delivery}`),
+    line("Start", payload.start),
+    line("Name", `${payload.first} ${payload.last}`),
+    line("Email", payload.email),
+    line("Phone", payload.phone),
+    line("Message", payload.message)
+  ].join("\n");
+
+  fetch(DISCORD_WEBHOOK, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      embeds: [{
+        title: "🏫 New chapter / club request",
+        color: 0x1B84E8,
+        description,
+        timestamp: new Date().toISOString()
+      }]
+    })
+  }).catch(() => {});
+}
+
 /* ---------- submit ---------- */
 async function submit() {
   const btn = card.querySelector("#next");
@@ -2281,6 +2326,8 @@ async function submit() {
     source: "devfintech-chapter-request",
     submittedAt: new Date().toISOString()
   };
+
+  notifyDiscord(payload);
 
   try {
     if (SUBMIT_ENDPOINT) {
@@ -2380,6 +2427,13 @@ window.__wizRefresh['start-a-chapter'] = () => placeDot();
    log to the console instead.
 ------------------------------------------------------------------- */
 const SUBMIT_ENDPOINT = "";
+
+/* ------------------------------------------------------------------
+   Discord webhook: paste the URL from
+   Channel Settings > Integrations > Webhooks > New Webhook > Copy Webhook URL
+   Leave blank to skip the Discord ping.
+------------------------------------------------------------------- */
+const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1547307062164455535/AR6Pzw8x946xa16VY5yJlTfpIrfXx8mL7F890D9yGVnOjLG8DvxqCk8sP0rMozs87OEq";
 
 const state = {
   studentFirst: "", studentLast: "", studentEmail: "", studentPhone: "",
@@ -2670,6 +2724,35 @@ function alertPick(msg) {
 }
 function alertPickClear() { notice?.remove(); notice = null; return true; }
 
+/* fire-and-forget ping to Discord, never blocks or breaks the real submit */
+function notifyDiscord(payload) {
+  if (!DISCORD_WEBHOOK) return;
+  const line = (label, value) => `**${label}:** ${value || "—"}`;
+  const description = [
+    line("Student", `${payload.studentFirst} ${payload.studentLast}`),
+    line("Guardian", `${payload.guardianFirst} ${payload.guardianLast}`),
+    line("Guardian email", payload.guardianEmail),
+    line("Guardian phone", payload.guardianPhone),
+    line("Location", `${payload.country}, ${payload.state_}`),
+    line("Schedule", payload.schedule),
+    line("Heard about us", payload.heard),
+    line("Experience", payload.experience)
+  ].join("\n");
+
+  fetch(DISCORD_WEBHOOK, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      embeds: [{
+        title: "📚 New class signup",
+        color: 0x1B84E8,
+        description,
+        timestamp: new Date().toISOString()
+      }]
+    })
+  }).catch(() => {});
+}
+
 /* ---------- submit ---------- */
 async function submit() {
   const btn = card.querySelector("#next");
@@ -2685,6 +2768,8 @@ async function submit() {
     source: "devfintech-class-registration",
     submittedAt: new Date().toISOString()
   };
+
+  notifyDiscord(payload);
 
   try {
     if (SUBMIT_ENDPOINT) {
