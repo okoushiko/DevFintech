@@ -208,6 +208,88 @@ footer{padding-top:clamp(48px,7vw,80px)}
 .foot-bottom{border-top:1px solid var(--line);padding:20px 0 32px;display:flex;flex-wrap:wrap;gap:.8rem;justify-content:space-between;font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
 
 .hidden-input[type=checkbox]{display:none}
+
+/* ---------- embedded wizard (chapter + class signup) ---------- */
+.wiz-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(25,35,31,.55);
+  display:flex;align-items:center;justify-content:center;
+  padding:24px 16px;backdrop-filter:blur(2px);
+}
+.wiz-overlay[hidden]{display:none}
+.wiz-shell{width:100%;max-width:620px;max-height:calc(100vh - 48px);overflow-y:auto;border-radius:16px}
+.wiz-card{
+  background:#fff;border:1px solid var(--line);border-radius:16px;
+  padding:clamp(26px,4vw,40px) clamp(22px,4vw,40px) 30px;position:relative;
+  box-shadow:0 40px 80px -32px rgba(25,35,31,.35);
+}
+.wiz-close{
+  position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:8px;
+  border:1.5px solid var(--line);background:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;color:var(--ink);
+  font-family:var(--display);font-size:1.2rem;line-height:1;
+}
+.wiz-close:hover{border-color:var(--ink)}
+.wiz-eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+.wiz-card h1{font-size:clamp(1.9rem,5vw,2.6rem);margin-bottom:14px;letter-spacing:-.03em;font-family:var(--display);font-weight:800;line-height:1.03}
+.wiz-card h1 .dot{color:var(--blue)}
+.wiz-card h2{font-size:clamp(1.35rem,3.2vw,1.7rem);margin-bottom:8px;letter-spacing:-.02em;font-family:var(--display);font-weight:800;line-height:1.08}
+.wiz-lede{color:var(--muted);font-size:1rem;margin-bottom:22px;max-width:46ch}
+.wiz-hint{color:var(--muted);font-size:.9rem;margin-bottom:20px;max-width:46ch}
+.wiz-facts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.wiz-fact{font-family:var(--mono);font-size:.72rem;padding:6px 11px;border:1px solid var(--line);border-radius:100px;color:var(--ink);background:var(--sky)}
+.wiz-meter{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.wiz-curve-wrap{flex:1;min-width:0}
+.wiz-curve{display:block;width:100%;height:36px;overflow:visible}
+.wiz-curve-track{fill:none;stroke:var(--line);stroke-width:2;stroke-linecap:round}
+.wiz-curve-live{fill:none;stroke:var(--blue);stroke-width:2.5;stroke-linecap:round;transition:stroke-dashoffset .5s cubic-bezier(.22,.8,.3,1)}
+.wiz-curve-dot{fill:var(--blue);stroke:#fff;stroke-width:2.5;transition:transform .5s cubic-bezier(.22,.8,.3,1)}
+.wiz-step-count{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em;color:var(--muted);white-space:nowrap}
+.wiz-opts{display:flex;flex-direction:column;gap:9px;margin-bottom:22px}
+.wiz-opt{display:block;width:100%;text-align:left;font-family:var(--display);font-size:.98rem;font-weight:700;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;cursor:pointer;transition:border-color .16s,background .16s,transform .16s}
+.wiz-opt:hover{border-color:var(--blue);transform:translateY(-1px)}
+.wiz-opt small{display:block;color:var(--muted);font-size:.82rem;font-weight:400;margin-top:3px}
+.wiz-opt[aria-pressed="true"]{border-color:var(--blue);background:var(--sky)}
+.wiz-opt[aria-pressed="true"] .wiz-tick{opacity:1}
+.wiz-opt .wiz-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.wiz-opt svg{flex:none;color:var(--blue)}
+.wiz-tick{opacity:0;flex:none;width:18px;height:18px;border-radius:50%;background:var(--blue);display:grid;place-items:center;transition:opacity .16s}
+.wiz-opt[data-multi] .wiz-tick{border-radius:5px}
+.wiz-tick::after{content:"";width:8px;height:4.5px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translate(1px,-1px)}
+.wiz-picked{font-family:var(--mono);font-size:.68rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:-12px 0 20px}
+.wiz-field{margin-bottom:16px}
+.wiz-field label{display:block;font-size:.85rem;font-weight:700;margin-bottom:6px;font-family:var(--display)}
+.wiz-field label .wiz-opt-tag{font-weight:400;color:var(--muted)}
+.wiz-field input[type=text],.wiz-field input[type=email],.wiz-field input[type=tel],.wiz-field select,.wiz-field textarea{
+  width:100%;font-family:var(--display);font-size:1rem;color:var(--ink);
+  background:var(--paper);border:1.5px solid var(--line);border-radius:8px;padding:11px 13px;
+  transition:border-color .16s,background .16s,box-shadow .16s;
+}
+.wiz-field textarea{resize:vertical;min-height:84px;line-height:1.45}
+.wiz-field select{appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8'><path d='M1 1l5 5 5-5' fill='none' stroke='%23244CE8' stroke-width='1.8' stroke-linecap='round'/></svg>");
+  background-repeat:no-repeat;background-position:right 13px center;padding-right:36px}
+.wiz-field input:focus,.wiz-field select:focus,.wiz-field textarea:focus{outline:none;border-color:var(--blue);background:#fff;box-shadow:0 0 0 4px rgba(36,76,232,.12)}
+.wiz-err{display:none;font-size:.82rem;color:#C93F3F;margin-top:6px}
+.wiz-err.show{display:block}
+.wiz-field.invalid input,.wiz-field.invalid select,.wiz-field.invalid textarea{border-color:#C93F3F;background:#FFF6F6}
+.wiz-nav{display:flex;align-items:center;gap:10px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+.wiz-spacer{flex:1}
+.wiz-summary{border-top:1px solid var(--line);margin-bottom:6px}
+.wiz-srow{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.wiz-skey{font-family:var(--mono);font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);width:128px;flex:none;padding-top:3px}
+.wiz-sval{flex:1;min-width:0;word-break:break-word}
+.wiz-badge{width:48px;height:48px;border-radius:50%;background:var(--blue);display:grid;place-items:center;margin-bottom:18px}
+.wiz-badge::after{content:"";width:16px;height:8px;border-left:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(-45deg) translate(1px,-2px)}
+.wiz-screen{animation:wizRise .3s cubic-bezier(.22,.8,.3,1)}
+@keyframes wizRise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+body.wiz-open{overflow:hidden}
+@media(max-width:560px){
+  .wiz-card{padding:24px 20px 22px}
+  .wiz-skey{width:96px}
+  .wiz-nav{flex-wrap:wrap}
+  .wiz-nav .btn{flex:1;text-align:center;justify-content:center}
+}
 </style>
 </head>
 <body>
@@ -217,12 +299,13 @@ footer{padding-top:clamp(48px,7vw,80px)}
     <a href="index.html" class="wordmark">devfintech.</a>
     <nav class="links">
       <a href="#curriculum">Curriculum</a>
-      <a href="club.html">Chapters</a>
+      <a href="javascript:void(0)" onclick="openWizard('chapter')">Chapters</a>
       <a href="#about">About us</a>
+      <a href="javascript:void(0)" onclick="openWizard(null)">Work with us</a>
       <a href="https://compoundhacks.org" target="_blank" rel="noopener">Compound Hacks ↗</a>
     </nav>
     <div class="head-cta">
-      <a class="btn btn-primary" href="class.html">Join a free class</a>
+      <a class="btn btn-primary" href="javascript:void(0)" onclick="openWizard(null)">Join us</a>
     </div>
     <button class="menu-btn" aria-label="Menu">+</button>
   </div>
@@ -238,7 +321,7 @@ footer{padding-top:clamp(48px,7vw,80px)}
         <h1>Money makes<br>sense. Together.</h1>
         <p class="lede">Free classes in finance, psychology and technology. Led by students, for students, at schools around the world.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="club.html">Start a chapter
+          <a class="btn btn-primary" href="javascript:void(0)" onclick="openWizard('chapter')">Start a chapter
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7M8 7h9v9"/></svg>
           </a>
           <a class="btn btn-outline" href="#curriculum">Explore the courses
@@ -322,7 +405,7 @@ footer{padding-top:clamp(48px,7vw,80px)}
         </div>
       </div>
       <div class="cta">
-        <a class="link on-ink" href="club.html">Explore all nine courses
+        <a class="link on-ink" href="javascript:void(0)" onclick="openWizard('chapter')">Explore all nine courses
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M7 17 17 7M8 7h9v9"/></svg>
         </a>
       </div>
@@ -343,7 +426,7 @@ footer{padding-top:clamp(48px,7vw,80px)}
         <div class="sched-row"><span>Monday</span><span>4:30–5:30</span></div>
         <div class="sched-row"><span>Tuesday</span><span>5:00–6:00</span></div>
         <p class="lede" style="margin:1.3rem 0 1.3rem;font-size:.95rem">Sessions start from the day you book.<br>Need another time? Request an alternate slot on the booking form.</p>
-        <a class="btn btn-primary" href="class.html">Book a free class
+        <a class="btn btn-primary" href="javascript:void(0)" onclick="openWizard('class')">Book a free class
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7M8 7h9v9"/></svg>
         </a>
         <p class="fine" style="margin-top:1rem">Times listed in PST</p>
@@ -359,7 +442,7 @@ footer{padding-top:clamp(48px,7vw,80px)}
         <h2>Your school.<br>Your chapter.</h2>
         <p class="lede" style="margin-top:1.2rem">A chapter is a club at your school, led by you, using our material. We run 60+ of them—and make it simple to start the next one.</p>
         <div class="stairs">
-          <a class="btn btn-primary" href="club.html">Bring it to my school
+          <a class="btn btn-primary" href="javascript:void(0)" onclick="openWizard('chapter')">Bring it to my school
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7M8 7h9v9"/></svg>
           </a>
         </div>
@@ -375,7 +458,7 @@ footer{padding-top:clamp(48px,7vw,80px)}
           <li><span class="idx">03</span><div><h4>Make the club your own.</h4><p>You set the schedule and teach your members. We stay on call, share what works across chapters, and bring your students into national events.</p></div></li>
         </ul>
         <div class="chapters-cta">
-          <a class="link" href="club.html">Explore the chapter program
+          <a class="link" href="javascript:void(0)" onclick="openWizard('chapter')">Explore the chapter program
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M7 17 17 7M8 7h9v9"/></svg>
           </a>
         </div>
@@ -443,7 +526,7 @@ footer{padding-top:clamp(48px,7vw,80px)}
       <div>
         <p class="lede">Join a free class. Lead a chapter. Mentor students or sponsor a program. However you want to contribute, we'll help you find the right place.</p>
         <div class="involve-cta">
-          <a class="btn btn-primary" href="club.html">Get involved
+          <a class="btn btn-primary" href="javascript:void(0)" onclick="openWizard(null)">Get involved
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7M8 7h9v9"/></svg>
           </a>
           <a class="link" href="mailto:thedevfintech@gmail.com">Email us
@@ -465,9 +548,9 @@ footer{padding-top:clamp(48px,7vw,80px)}
     <div>
       <div class="foot-h">Explore</div>
       <div class="foot-links">
-        <div class="row"><a href="index.html">Home</a><a href="#curriculum">Curriculum</a><a href="club.html">Chapters</a></div>
-        <div class="row"><a href="#about">About</a><a href="club.html">Get involved</a></div>
-        <div class="row"><a href="mailto:thedevfintech@gmail.com">Work with us</a><a href="class.html">Sign up for a class</a></div>
+        <div class="row"><a href="index.html">Home</a><a href="#curriculum">Curriculum</a><a href="javascript:void(0)" onclick="openWizard('chapter')">Chapters</a></div>
+        <div class="row"><a href="#about">About</a><a href="javascript:void(0)" onclick="openWizard(null)">Get involved</a></div>
+        <div class="row"><a href="mailto:thedevfintech@gmail.com">Work with us</a><a href="javascript:void(0)" onclick="openWizard('class')">Sign up for a class</a></div>
       </div>
     </div>
     <div>
@@ -487,6 +570,714 @@ footer{padding-top:clamp(48px,7vw,80px)}
     <span>Recognized by the California Secretary of State</span>
   </div>
 </footer>
+
+<!-- ---------- embedded join wizard ---------- -->
+<div class="wiz-overlay" id="wizOverlay" hidden>
+  <div class="wiz-shell">
+    <div class="wiz-card">
+      <button class="wiz-close" id="wizClose" aria-label="Close" type="button">&times;</button>
+      <div id="wizContent"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   Embedded join wizard — merges the chapter-request and class-signup forms
+   directly into this page (no more linking out to club.html / class.html).
+   Both still notify the same two Discord webhooks and post to the same
+   two Google Apps Script endpoints as before.
+   ========================================================================= */
+
+const WIZ_DISCORD_CHAPTER  = "https://discord.com/api/webhooks/1547307051003281429/7ySLLiwrwUvzgGtgsxefwAkU3SNlwlUzNg8eDYgb_pGhHCE0rO21L7uejK5siW8kEvgB";
+const WIZ_DISCORD_CLASS    = "https://discord.com/api/webhooks/1547307062164455535/AR6Pzw8x946xa16VY5yJlTfpIrfXx8mL7F890D9yGVnOjLG8DvxqCk8sP0rMozs87OEq";
+const WIZ_ENDPOINT_CHAPTER = "https://script.google.com/macros/s/AKfycbwUqIX8Vozgys0jgzWcNH-PfrLB3U7ZmeFz0d_oxm63D0kY6vWz8AR3KTFeWVgeUDPDIA/exec";
+const WIZ_ENDPOINT_CLASS   = "https://script.google.com/macros/s/AKfycbwKtXNbiBFW8d3QjMT8pNhtQmACy8ddlT0_ZiKN-0fWFw4-zygpWPdEa0iKlm5rkRSqiQ/exec";
+
+let wizMode = null;   // null (chooser) | 'chapter' | 'class'
+let wizIdx  = 0;
+let wizDone = false;
+
+const chapterState = {
+  path:null,
+  schoolName:"", location:"", yourRole:"", grades:"",
+  teamSize:"", advisor:"",
+  clubName:"", clubSize:"", meets:"",
+  topics:[],
+  format:"", delivery:"", start:"",
+  first:"", last:"", email:"", phone:"",
+  message:""
+};
+const classState = {
+  studentFirst:"", studentLast:"", studentEmail:"", studentPhone:"",
+  guardianFirst:"", guardianLast:"", guardianEmail:"", guardianPhone:"",
+  country:"", state_:"",
+  heard:"", experience:"",
+  schedule:"", other:""
+};
+
+/* the nine courses DevFintech actually teaches */
+const WIZ_TOPICS = [
+  ["Personal Finance",  "Budgeting, saving, and managing money"],
+  ["Behavioral Finance","The psychology behind spending and investing"],
+  ["Banking",           "Account types, income, and expenses"],
+  ["Investing",         "Ways to invest money and grow wealth"],
+  ["Coding",            "Python and HTML fundamentals"],
+  ["Economics",         "Offered to students 11 and older"],
+  ["Digital Currencies","Crypto, blockchain, and staying safe online"],
+  ["Loans",             "Loan types, what they're used for, and their terms"],
+  ["Debt",              "Kinds of debt, and how to manage and reduce it"]
+];
+const WIZ_ROLES   = ["Student","Club officer","Teacher","Counselor or administrator","Parent","Other"];
+const WIZ_GRADES  = ["Elementary (K–5)","Middle school (6–8)","High school (9–12)","Mixed ages"];
+const WIZ_SIZES   = ["Under 10","10 to 25","25 to 50","More than 50"];
+const WIZ_CADENCE = ["Weekly","Every other week","Monthly","Now and then"];
+const WIZ_FORMATS = ["Weekly sessions across a semester","A short workshop series","A one-time workshop or assembly","Not sure yet"];
+const WIZ_DELIVER = ["Video calls","In person","Either works"];
+const WIZ_START   = ["This semester","Next semester","Next school year","Still deciding"];
+const WIZ_HEARD    = ["A friend or classmate","School or teacher","Instagram or social media","Search engine","A DevFintech event or hackathon","Other"];
+const WIZ_SCHEDULE = [
+  ["mon","Monday","4:30PM to 5:30PM PST"],
+  ["tue","Tuesday","5:00PM to 6:00PM PST"],
+  ["other","Other","Tell us your time zone, day, and time"]
+];
+
+/* ---------- step lists ---------- */
+function chapterSteps(){
+  const s = ["path"];
+  if(chapterState.path) s.push("school");
+  if(chapterState.path === "chapter") s.push("team");
+  if(chapterState.path === "existing") s.push("club");
+  if(chapterState.path) s.push("topics","format","contact","message","review");
+  return s;
+}
+const CHAPTER_PROJECTED = ["path","school","team","topics","format","contact","message","review"];
+function chapterPlanned(){ return chapterState.path ? chapterSteps() : CHAPTER_PROJECTED; }
+
+function classSteps(){
+  const s = ["student","guardian","location","background","schedule"];
+  if(classState.schedule === "other") s.push("other");
+  s.push("review");
+  return s;
+}
+const CLASS_PROJECTED = ["student","guardian","location","background","schedule","other","review"];
+function classPlanned(){ return classState.schedule === "other" ? classSteps() : CLASS_PROJECTED; }
+
+function currentSteps(){ return wizMode === "chapter" ? chapterSteps() : wizMode === "class" ? classSteps() : ["entry"]; }
+function plannedSteps(){ return wizMode === "chapter" ? chapterPlanned() : wizMode === "class" ? classPlanned() : ["entry"]; }
+
+/* ---------- progress meter ---------- */
+const WIZ_CURVE_D = "M4,40 C60,39 108,35 148,27 S222,7 296,3";
+function wizMeter(){
+  const list = plannedSteps();
+  const total = Math.max(1, list.length - 1);
+  const done  = Math.max(0, wizIdx);
+  const p     = done/total;
+  return `
+  <div class="wiz-meter">
+    <div class="wiz-curve-wrap">
+      <svg class="wiz-curve" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true">
+        <path class="wiz-curve-track" d="${WIZ_CURVE_D}" />
+        <path class="wiz-curve-live" id="wizLive" d="${WIZ_CURVE_D}" pathLength="1" stroke-dasharray="1" stroke-dashoffset="${1-p}" />
+        <circle class="wiz-curve-dot" id="wizDot" r="4.5" cx="0" cy="0" />
+      </svg>
+    </div>
+    <span class="wiz-step-count">${done} / ${total}</span>
+  </div>`;
+}
+function wizPlaceDot(){
+  const live = document.getElementById("wizLive");
+  const dot  = document.getElementById("wizDot");
+  if(!live || !dot) return;
+  const list  = plannedSteps();
+  const total = Math.max(1, list.length - 1);
+  const p     = Math.max(0, wizIdx)/total;
+  const len   = live.getTotalLength();
+  const pt    = live.getPointAtLength(len * p);
+  dot.setAttribute("cx", pt.x);
+  dot.setAttribute("cy", pt.y);
+  dot.style.opacity = p > 0 ? 1 : 0;
+}
+
+/* ---------- small builders ---------- */
+const wizOpt = (stateObj, val, key, title, sub, multi) => `
+  <button class="wiz-opt" data-key="${key}" data-val="${val}" ${multi ? 'data-multi="1"' : ""} aria-pressed="${multi ? stateObj[key].includes(val) : stateObj[key]===val}">
+    <span class="wiz-row">
+      <span>${title}${sub ? `<small>${sub}</small>` : ""}</span>
+      <span class="wiz-tick"></span>
+    </span>
+  </button>`;
+
+const wizField = (id, label, html, required=true) => `
+  <div class="wiz-field" id="wf-${id}">
+    <label for="${id}">${label}${required ? "" : ` <span class="wiz-opt-tag">(optional)</span>`}</label>
+    ${html}
+    <p class="wiz-err" id="we-${id}"></p>
+  </div>`;
+
+const wizSel = (id, list, current, placeholder="Select one") => `
+  <select id="${id}">
+    <option value="">${placeholder}</option>
+    ${list.map(o=>`<option ${current===o?"selected":""}>${o}</option>`).join("")}
+  </select>`;
+
+const wizNav = (primary="Continue", canBack=true) => `
+  <div class="wiz-nav">
+    ${canBack ? `<button class="btn btn-outline" id="wizBack" type="button">Back</button>` : ""}
+    <span class="wiz-spacer"></span>
+    <button class="btn btn-primary" id="wizNext" type="button">${primary}</button>
+  </div>`;
+
+/* ---------- entry chooser ---------- */
+function entryScreen(){
+  return `
+  <div class="wiz-screen">
+    <p class="wiz-eyebrow">Join DevFintech</p>
+    <h1>How do you want<br>to get involved<span class="dot">?</span></h1>
+    <p class="wiz-lede">Pick one and we'll take you straight to the right form.</p>
+    <div class="wiz-opts">
+      <button class="wiz-opt" id="wizPickClass" type="button">
+        <span class="wiz-row">
+          <span>Sign up for a class<small>Free live sessions, taught by trained student mentors</small></span>
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </span>
+      </button>
+      <button class="wiz-opt" id="wizPickChapter" type="button">
+        <span class="wiz-row">
+          <span>Join with us<small>Start a chapter, or bring DevFintech into a club or class you already run</small></span>
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </span>
+      </button>
+    </div>
+    <p class="wiz-hint" style="margin-bottom:0">Free, always. A person replies within about two days.</p>
+  </div>`;
+}
+
+/* ---------- chapter / club screens ---------- */
+const chapterScreens = {
+  path: () => `
+    <div class="wiz-screen">
+      <h2>How would DevFintech fit in?</h2>
+      <p class="wiz-hint">This changes what we ask next.</p>
+      <div class="wiz-opts">
+        ${wizOpt(chapterState,"chapter","path","Start a chapter at my school","DevFintech runs as its own club, with you helping lead it")}
+        ${wizOpt(chapterState,"existing","path","Teach inside a club or class we already have","We bring the curriculum to a group that already meets")}
+      </div>
+      ${wizNav("Continue", false)}
+    </div>`,
+
+  school: () => `
+    <div class="wiz-screen">
+      <h2>Tell us about the school</h2>
+      <p class="wiz-hint">We match you with mentors who have taught your age group before.</p>
+      ${wizField("schoolName","School name",`<input type="text" id="schoolName" value="${chapterState.schoolName}" placeholder="Streamer High School" autocomplete="organization">`)}
+      ${wizField("location","City and state or country",`<input type="text" id="location" value="${chapterState.location}" placeholder="San Jose, CA">`)}
+      ${wizField("yourRole","Your role there", wizSel("yourRole", WIZ_ROLES, chapterState.yourRole))}
+      ${wizField("grades","Who would be in the room", wizSel("grades", WIZ_GRADES, chapterState.grades, "Select an age group"))}
+      ${wizNav()}
+    </div>`,
+
+  team: () => `
+    <div class="wiz-screen">
+      <h2>Who is starting it with you?</h2>
+      <p class="wiz-hint">Chapters run best with a few students sharing the work. A small team is fine to start.</p>
+      ${wizField("teamSize","Students helping launch the chapter", wizSel("teamSize", ["Just me","2 to 4 students","5 to 10 students","More than 10 students"], chapterState.teamSize, "Select a size"))}
+      ${wizField("advisor","Faculty advisor", wizSel("advisor", ["Yes, we have one","Not yet, but we can ask","Not sure if we need one"], chapterState.advisor, "Select an answer"))}
+      ${wizNav()}
+    </div>`,
+
+  club: () => `
+    <div class="wiz-screen">
+      <h2>Tell us about the group</h2>
+      <p class="wiz-hint">We plan the sessions around how your group already meets.</p>
+      ${wizField("clubName","Club, class, or program name",`<input type="text" id="clubName" value="${chapterState.clubName}" placeholder="Finance Club">`)}
+      ${wizField("clubSize","Roughly how many students", wizSel("clubSize", WIZ_SIZES, chapterState.clubSize, "Select a size"))}
+      ${wizField("meets","How often it meets", wizSel("meets", WIZ_CADENCE, chapterState.meets, "Select a schedule"))}
+      ${wizNav()}
+    </div>`,
+
+  topics: () => `
+    <div class="wiz-screen">
+      <h2>Which courses do you want?</h2>
+      <p class="wiz-hint">Pick as many as you like. We build the schedule from what you choose.</p>
+      <div class="wiz-opts">
+        ${WIZ_TOPICS.map(([t,s]) => wizOpt(chapterState,t,"topics",t,s,true)).join("")}
+      </div>
+      <p class="wiz-picked" id="wizCount">${chapterState.topics.length} selected</p>
+      ${wizNav()}
+    </div>`,
+
+  format: () => `
+    <div class="wiz-screen">
+      <h2>How should the sessions run?</h2>
+      <p class="wiz-hint">Rough answers are fine. We will confirm the details with you before anything is booked.</p>
+      ${wizField("format","Shape of the program", wizSel("format", WIZ_FORMATS, chapterState.format, "Select a format"))}
+      ${wizField("delivery","Where sessions happen", wizSel("delivery", WIZ_DELIVER, chapterState.delivery, "Select an option"))}
+      ${wizField("start","When you want to start", wizSel("start", WIZ_START, chapterState.start, "Select a timeframe"))}
+      ${wizNav()}
+    </div>`,
+
+  contact: () => `
+    <div class="wiz-screen">
+      <h2>How do we reach you?</h2>
+      <p class="wiz-hint">One confirmation now, then a real reply from a person. Nothing else, ever.</p>
+      ${wizField("first","First name",`<input type="text" id="first" value="${chapterState.first}" autocomplete="given-name">`)}
+      ${wizField("last","Last name",`<input type="text" id="last" value="${chapterState.last}" autocomplete="family-name">`)}
+      ${wizField("email","Email",`<input type="email" id="email" value="${chapterState.email}" placeholder="you@school.edu" autocomplete="email">`)}
+      ${wizField("phone","Phone number",`<input type="tel" id="phone" value="${chapterState.phone}" placeholder="(408) 555-0134" autocomplete="tel">`)}
+      ${wizNav()}
+    </div>`,
+
+  message: () => `
+    <div class="wiz-screen">
+      <h2>Anything else we should know?</h2>
+      <p class="wiz-hint">Optional. Skip it if you'd rather just talk it through later.</p>
+      ${wizField("message","Add a message or tell us more about your school",`<textarea id="message" placeholder="What students are asking for, approvals you still need, days that work">${chapterState.message}</textarea>`, false)}
+      ${wizNav("Review")}
+    </div>`,
+
+  review: () => {
+    const rows = [
+      ["Request", chapterState.path === "chapter" ? "Start a new chapter" : "Teach an existing club or class"],
+      ["School", chapterState.schoolName],
+      ["Location", chapterState.location],
+      ["Your role", chapterState.yourRole],
+      ["Students", chapterState.grades]
+    ];
+    if(chapterState.path === "chapter"){
+      rows.push(["Founding team", chapterState.teamSize], ["Advisor", chapterState.advisor]);
+    } else {
+      rows.push(["Group", `${chapterState.clubName} · ${chapterState.clubSize}`], ["Meets", chapterState.meets]);
+    }
+    rows.push(
+      ["Courses", chapterState.topics.join(", ")],
+      ["Format", `${chapterState.format} · ${chapterState.delivery}`],
+      ["Start", chapterState.start],
+      ["Name", `${chapterState.first} ${chapterState.last}`],
+      ["Email", chapterState.email],
+      ["Phone", chapterState.phone],
+      ["Message", chapterState.message ? chapterState.message : `<span style="color:var(--muted)">None added</span>`]
+    );
+    return `
+    <div class="wiz-screen">
+      <h2>Check this over</h2>
+      <p class="wiz-hint">Go back and change anything that looks wrong.</p>
+      <div class="wiz-summary">
+        ${rows.map(([k,v])=>`<div class="wiz-srow"><span class="wiz-skey">${k}</span><span class="wiz-sval">${v}</span></div>`).join("")}
+      </div>
+      ${wizNav("Send request")}
+    </div>`;
+  },
+
+  done: () => `
+    <div class="wiz-screen">
+      <div class="wiz-badge"></div>
+      <h2>Request sent.</h2>
+      <p class="wiz-lede">A confirmation is on its way to <strong>${chapterState.email}</strong>. Someone from DevFintech will follow up about <strong>${chapterState.schoolName}</strong> within a couple of days.</p>
+      <div class="wiz-facts">
+        <span class="wiz-fact">Request received</span>
+        <span class="wiz-fact">No cost</span>
+      </div>
+    </div>`
+};
+
+/* ---------- class-signup screens ---------- */
+const classScreens = {
+  student: () => `
+    <div class="wiz-screen">
+      <h2>Who's the student?</h2>
+      <p class="wiz-hint">Just the basics, we'll get to scheduling in a minute.</p>
+      ${wizField("studentFirst","Student's first name",`<input type="text" id="studentFirst" value="${classState.studentFirst}" autocomplete="given-name">`)}
+      ${wizField("studentLast","Student's last name",`<input type="text" id="studentLast" value="${classState.studentLast}" autocomplete="family-name">`)}
+      ${wizField("studentEmail","Student's email",`<input type="email" id="studentEmail" value="${classState.studentEmail}" placeholder="student@email.com" autocomplete="email">`, false)}
+      ${wizField("studentPhone","Student's phone number",`<input type="tel" id="studentPhone" value="${classState.studentPhone}" placeholder="(408) 555-0134" autocomplete="tel">`, false)}
+      ${wizNav("Continue", false)}
+    </div>`,
+
+  guardian: () => `
+    <div class="wiz-screen">
+      <h2>Who's the guardian?</h2>
+      <p class="wiz-hint">This is who we'll confirm the class time with and reach if a session changes.</p>
+      ${wizField("guardianFirst","Guardian's first name",`<input type="text" id="guardianFirst" value="${classState.guardianFirst}" autocomplete="given-name">`)}
+      ${wizField("guardianLast","Guardian's last name",`<input type="text" id="guardianLast" value="${classState.guardianLast}" autocomplete="family-name">`)}
+      ${wizField("guardianEmail","Guardian's email",`<input type="email" id="guardianEmail" value="${classState.guardianEmail}" placeholder="you@email.com" autocomplete="email">`)}
+      ${wizField("guardianPhone","Guardian's phone number",`<input type="tel" id="guardianPhone" value="${classState.guardianPhone}" placeholder="(408) 555-0134" autocomplete="tel">`)}
+      ${wizNav()}
+    </div>`,
+
+  location: () => `
+    <div class="wiz-screen">
+      <h2>Where are you located?</h2>
+      <p class="wiz-hint">Sessions run over video, so this just tells us the time zone to plan around.</p>
+      ${wizField("country","Country",`<input type="text" id="country" value="${classState.country}" placeholder="United States" autocomplete="country-name">`)}
+      ${wizField("state_","State or province",`<input type="text" id="state_" value="${classState.state_}" placeholder="California" autocomplete="address-level1">`)}
+      ${wizNav()}
+    </div>`,
+
+  background: () => `
+    <div class="wiz-screen">
+      <h2>A bit of background</h2>
+      <p class="wiz-hint">Helps us place the student in the right group and pace the first few sessions.</p>
+      ${wizField("heard","How did you hear about us", wizSel("heard", WIZ_HEARD, classState.heard, "Select an answer"))}
+      ${wizField("experience","Prior experience with these topics, and what you're most interested in",`<textarea id="experience" placeholder="e.g. never budgeted before, curious about investing and coding">${classState.experience}</textarea>`)}
+      ${wizNav()}
+    </div>`,
+
+  schedule: () => `
+    <div class="wiz-screen">
+      <h2>What days will you attend?</h2>
+      <p class="wiz-hint">Pick a slot below, or choose Other and tell us a time that works better, we'll try to accommodate it.</p>
+      <div class="wiz-opts">
+        ${WIZ_SCHEDULE.map(([v,t,s]) => wizOpt(classState,v,"schedule",t,s)).join("")}
+      </div>
+      ${wizNav()}
+    </div>`,
+
+  other: () => `
+    <div class="wiz-screen">
+      <h2>What time works for you?</h2>
+      <p class="wiz-hint">Include the time zone, the day, and the time you'd like, and we'll see what we can do.</p>
+      ${wizField("other","Time zone, day, and time",`<textarea id="other" placeholder="e.g. GMT+1, Wednesdays, 6:00 to 7:00 PM">${classState.other}</textarea>`)}
+      ${wizNav()}
+    </div>`,
+
+  review: () => {
+    const scheduleLine = classState.schedule === "other"
+      ? `Other &middot; ${classState.other}`
+      : (() => { const m = WIZ_SCHEDULE.find(s => s[0] === classState.schedule); return m ? `${m[1]} &middot; ${m[2]}` : ""; })();
+    const rows = [
+      ["Student", `${classState.studentFirst} ${classState.studentLast}`],
+      ["Student email", classState.studentEmail || `<span style="color:var(--muted)">Not provided</span>`],
+      ["Student phone", classState.studentPhone || `<span style="color:var(--muted)">Not provided</span>`],
+      ["Guardian", `${classState.guardianFirst} ${classState.guardianLast}`],
+      ["Guardian email", classState.guardianEmail],
+      ["Guardian phone", classState.guardianPhone],
+      ["Location", `${classState.country}, ${classState.state_}`],
+      ["Heard about us", classState.heard],
+      ["Experience", classState.experience],
+      ["Schedule", scheduleLine]
+    ];
+    return `
+    <div class="wiz-screen">
+      <h2>Check this over</h2>
+      <p class="wiz-hint">Go back and change anything that looks wrong.</p>
+      <div class="wiz-summary">
+        ${rows.map(([k,v])=>`<div class="wiz-srow"><span class="wiz-skey">${k}</span><span class="wiz-sval">${v}</span></div>`).join("")}
+      </div>
+      ${wizNav("Send registration")}
+    </div>`;
+  },
+
+  done: () => `
+    <div class="wiz-screen">
+      <div class="wiz-badge"></div>
+      <h2>Registration sent.</h2>
+      <p class="wiz-lede">A confirmation is on its way to <strong>${classState.guardianEmail}</strong>. We'll follow up to confirm the class time for <strong>${classState.studentFirst}</strong> within a couple of days.</p>
+      <div class="wiz-facts">
+        <span class="wiz-fact">Registration received</span>
+        <span class="wiz-fact">No cost</span>
+      </div>
+    </div>`
+};
+
+/* ---------- validation ---------- */
+function wizFail(id, msg){
+  const f = document.getElementById("wf-"+id);
+  const e = document.getElementById("we-"+id);
+  if(f) f.classList.add("invalid");
+  if(e){ e.textContent = msg; e.classList.add("show"); }
+  return false;
+}
+function wizClearErrors(){
+  document.querySelectorAll(".wiz-field").forEach(f=>f.classList.remove("invalid"));
+  document.querySelectorAll(".wiz-err").forEach(e=>e.classList.remove("show"));
+}
+const WIZ_EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+let wizNotice = null;
+function wizAlertPick(msg){
+  const opts = document.querySelector("#wizContent .wiz-opts");
+  if(opts && !wizNotice){
+    wizNotice = document.createElement("p");
+    wizNotice.className = "wiz-err show";
+    wizNotice.style.marginBottom = "18px";
+    wizNotice.textContent = msg;
+    opts.after(wizNotice);
+  }
+  return false;
+}
+function wizAlertPickClear(){ wizNotice?.remove(); wizNotice = null; return true; }
+
+function validateChapter(step){
+  wizClearErrors();
+  const v = id => (document.getElementById(id)?.value || "").trim();
+
+  if(step === "path")   return chapterState.path ? wizAlertPickClear() : wizAlertPick("Pick one to continue.");
+  if(step === "topics") return chapterState.topics.length ? wizAlertPickClear() : wizAlertPick("Pick at least one course. You can add more later.");
+
+  if(step === "school"){
+    let ok = true;
+    chapterState.schoolName = v("schoolName"); chapterState.location = v("location");
+    chapterState.yourRole   = v("yourRole");   chapterState.grades   = v("grades");
+    if(!chapterState.schoolName) ok = wizFail("schoolName","Enter the school name.");
+    if(!chapterState.location)   ok = wizFail("location","Enter the city and state or country.");
+    if(!chapterState.yourRole)   ok = wizFail("yourRole","Pick your role at the school.");
+    if(!chapterState.grades)     ok = wizFail("grades","Pick the age group you'd be teaching.");
+    return ok;
+  }
+  if(step === "team"){
+    let ok = true;
+    chapterState.teamSize = v("teamSize"); chapterState.advisor = v("advisor");
+    if(!chapterState.teamSize) ok = wizFail("teamSize","Pick a rough team size.");
+    if(!chapterState.advisor)  ok = wizFail("advisor","Let us know where the advisor stands.");
+    return ok;
+  }
+  if(step === "club"){
+    let ok = true;
+    chapterState.clubName = v("clubName"); chapterState.clubSize = v("clubSize"); chapterState.meets = v("meets");
+    if(!chapterState.clubName) ok = wizFail("clubName","Enter the club, class, or program name.");
+    if(!chapterState.clubSize) ok = wizFail("clubSize","Pick a rough size.");
+    if(!chapterState.meets)    ok = wizFail("meets","Pick how often it meets.");
+    return ok;
+  }
+  if(step === "format"){
+    let ok = true;
+    chapterState.format = v("format"); chapterState.delivery = v("delivery"); chapterState.start = v("start");
+    if(!chapterState.format)   ok = wizFail("format","Pick a format, you can change it later.");
+    if(!chapterState.delivery) ok = wizFail("delivery","Pick where sessions would happen.");
+    if(!chapterState.start)    ok = wizFail("start","Pick a rough start time.");
+    return ok;
+  }
+  if(step === "contact"){
+    let ok = true;
+    chapterState.first = v("first"); chapterState.last = v("last");
+    chapterState.email = v("email"); chapterState.phone = v("phone");
+    if(!chapterState.first) ok = wizFail("first","Enter your first name.");
+    if(!chapterState.last)  ok = wizFail("last","Enter your last name.");
+    if(!WIZ_EMAIL_RE.test(chapterState.email))
+      ok = wizFail("email", chapterState.email ? "That email address isn't valid." : "Enter your email.");
+    if(chapterState.phone.replace(/\D/g,"").length < 7)
+      ok = wizFail("phone", chapterState.phone ? "Add a full phone number." : "Enter a phone number.");
+    return ok;
+  }
+  if(step === "message"){
+    chapterState.message = v("message").slice(0, 1000);
+    return true;
+  }
+  return true;
+}
+
+function validateClass(step){
+  wizClearErrors();
+  const v = id => (document.getElementById(id)?.value || "").trim();
+
+  if(step === "student"){
+    let ok = true;
+    classState.studentFirst = v("studentFirst"); classState.studentLast = v("studentLast");
+    classState.studentEmail = v("studentEmail"); classState.studentPhone = v("studentPhone");
+    if(!classState.studentFirst) ok = wizFail("studentFirst","Enter the student's first name.");
+    if(!classState.studentLast)  ok = wizFail("studentLast","Enter the student's last name.");
+    if(classState.studentEmail && !WIZ_EMAIL_RE.test(classState.studentEmail))
+      ok = wizFail("studentEmail","That email address isn't valid.");
+    return ok;
+  }
+  if(step === "guardian"){
+    let ok = true;
+    classState.guardianFirst = v("guardianFirst"); classState.guardianLast = v("guardianLast");
+    classState.guardianEmail = v("guardianEmail"); classState.guardianPhone = v("guardianPhone");
+    if(!classState.guardianFirst) ok = wizFail("guardianFirst","Enter the guardian's first name.");
+    if(!classState.guardianLast)  ok = wizFail("guardianLast","Enter the guardian's last name.");
+    if(!WIZ_EMAIL_RE.test(classState.guardianEmail))
+      ok = wizFail("guardianEmail", classState.guardianEmail ? "That email address isn't valid." : "Enter the guardian's email.");
+    if(classState.guardianPhone.replace(/\D/g,"").length < 7)
+      ok = wizFail("guardianPhone", classState.guardianPhone ? "Add a full phone number." : "Enter the guardian's phone number.");
+    return ok;
+  }
+  if(step === "location"){
+    let ok = true;
+    classState.country = v("country"); classState.state_ = v("state_");
+    if(!classState.country) ok = wizFail("country","Enter a country.");
+    if(!classState.state_)  ok = wizFail("state_","Enter a state or province.");
+    return ok;
+  }
+  if(step === "background"){
+    let ok = true;
+    classState.heard = v("heard"); classState.experience = v("experience");
+    if(!classState.heard) ok = wizFail("heard","Let us know how you heard about us.");
+    if(!classState.experience) ok = wizFail("experience","A sentence or two is plenty.");
+    return ok;
+  }
+  if(step === "schedule") return classState.schedule ? wizAlertPickClear() : wizAlertPick("Pick a day, or choose Other to tell us a time.");
+  if(step === "other"){
+    classState.other = v("other");
+    return classState.other ? true : wizFail("other","Tell us the time zone, day, and time you'd like.");
+  }
+  return true;
+}
+
+/* ---------- Discord notifications (fire-and-forget) ---------- */
+function notifyDiscordChapter(payload){
+  const line = (label, value) => `**${label}:** ${value || "—"}`;
+  const group = payload.path === "chapter"
+    ? line("Founding team", payload.teamSize) + "\n" + line("Advisor", payload.advisor)
+    : line("Group", `${payload.clubName} · ${payload.clubSize}`) + "\n" + line("Meets", payload.meets);
+  const description = [
+    line("Request", payload.path === "chapter" ? "Start a new chapter" : "Teach an existing club or class"),
+    line("School", payload.schoolName),
+    line("Location", payload.location),
+    line("Role", payload.yourRole),
+    line("Students", payload.grades),
+    group,
+    line("Courses", payload.topics),
+    line("Format", `${payload.format} · ${payload.delivery}`),
+    line("Start", payload.start),
+    line("Name", `${payload.first} ${payload.last}`),
+    line("Email", payload.email),
+    line("Phone", payload.phone),
+    line("Message", payload.message)
+  ].join("\n");
+  fetch(WIZ_DISCORD_CHAPTER, {
+    method:"POST", headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({ embeds:[{ title:"🏫 New chapter / club request", color:0x244CE8, description, timestamp:new Date().toISOString() }] })
+  }).catch(()=>{});
+}
+function notifyDiscordClass(payload){
+  const line = (label, value) => `**${label}:** ${value || "—"}`;
+  const description = [
+    line("Student", `${payload.studentFirst} ${payload.studentLast}`),
+    line("Guardian", `${payload.guardianFirst} ${payload.guardianLast}`),
+    line("Guardian email", payload.guardianEmail),
+    line("Guardian phone", payload.guardianPhone),
+    line("Location", `${payload.country}, ${payload.state_}`),
+    line("Schedule", payload.schedule),
+    line("Heard about us", payload.heard),
+    line("Experience", payload.experience)
+  ].join("\n");
+  fetch(WIZ_DISCORD_CLASS, {
+    method:"POST", headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({ embeds:[{ title:"📚 New class signup", color:0x244CE8, description, timestamp:new Date().toISOString() }] })
+  }).catch(()=>{});
+}
+
+/* ---------- submit ---------- */
+async function submitWizard(){
+  const btn = document.getElementById("wizNext");
+  btn.disabled = true;
+  const prevLabel = btn.textContent;
+  btn.textContent = "Sending…";
+
+  try{
+    if(wizMode === "chapter"){
+      const payload = { ...chapterState, topics: chapterState.topics.join(", "), source:"devfintech-chapter-request", submittedAt:new Date().toISOString() };
+      notifyDiscordChapter(payload);
+      const res = await fetch(WIZ_ENDPOINT_CHAPTER, { method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(payload) });
+      if(!res.ok) throw new Error(res.status);
+    } else {
+      const scheduleFinal = classState.schedule === "other"
+        ? "Other: " + classState.other
+        : (() => { const m = WIZ_SCHEDULE.find(s => s[0] === classState.schedule); return m ? `${m[1]} ${m[2]}` : ""; })();
+      const payload = { ...classState, schedule: scheduleFinal, source:"devfintech-class-registration", submittedAt:new Date().toISOString() };
+      notifyDiscordClass(payload);
+      const res = await fetch(WIZ_ENDPOINT_CLASS, { method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(payload) });
+      if(!res.ok) throw new Error(res.status);
+    }
+    wizDone = true;
+    renderWizard();
+  }catch(err){
+    btn.disabled = false;
+    btn.textContent = prevLabel;
+    wizAlertPick("That didn't send. Check your connection and try again.");
+  }
+}
+
+/* ---------- render + wiring ---------- */
+function wizWireOpts(content, stateObj){
+  content.querySelectorAll(".wiz-opt[data-key]").forEach(b=>{
+    b.addEventListener("click", ()=>{
+      const key = b.dataset.key, val = b.dataset.val;
+      if(b.dataset.multi){
+        const list = stateObj[key];
+        const at = list.indexOf(val);
+        if(at > -1) list.splice(at,1); else list.push(val);
+        b.setAttribute("aria-pressed", list.includes(val));
+        const c = document.getElementById("wizCount");
+        if(c) c.textContent = `${list.length} selected`;
+      } else {
+        stateObj[key] = val;
+        content.querySelectorAll(`.wiz-opt[data-key="${key}"]`).forEach(o=>o.setAttribute("aria-pressed", o===b));
+      }
+      wizAlertPickClear();
+    });
+  });
+}
+
+function renderWizard(){
+  wizNotice = null;
+  const content = document.getElementById("wizContent");
+  if(!content) return;
+
+  if(wizDone){
+    content.innerHTML = wizMode === "chapter" ? chapterScreens.done() : classScreens.done();
+    return;
+  }
+
+  if(wizMode === null){
+    content.innerHTML = entryScreen();
+    document.getElementById("wizPickClass").addEventListener("click", ()=>{ wizMode = "class"; wizIdx = 0; renderWizard(); });
+    document.getElementById("wizPickChapter").addEventListener("click", ()=>{ wizMode = "chapter"; wizIdx = 0; renderWizard(); });
+    return;
+  }
+
+  const list = currentSteps();
+  const step = list[wizIdx];
+  const screensObj = wizMode === "chapter" ? chapterScreens : classScreens;
+  const stateObj    = wizMode === "chapter" ? chapterState  : classState;
+
+  content.innerHTML = wizMeter() + screensObj[step]();
+  wizPlaceDot();
+  wizWireOpts(content, stateObj);
+
+  document.getElementById("wizNext")?.addEventListener("click", ()=>{
+    if(step === "review") return submitWizard();
+    const ok = wizMode === "chapter" ? validateChapter(step) : validateClass(step);
+    if(!ok) return;
+    wizIdx++;
+    renderWizard();
+  });
+  document.getElementById("wizBack")?.addEventListener("click", ()=>{
+    if(wizIdx === 0){ wizMode = null; wizIdx = 0; renderWizard(); return; }
+    wizIdx = Math.max(0, wizIdx-1);
+    renderWizard();
+  });
+
+  content.querySelector("input,select,textarea")?.focus({preventScroll:true});
+}
+
+/* ---------- open / close ---------- */
+function openWizard(mode){
+  wizMode = mode || null;
+  wizIdx  = 0;
+  wizDone = false;
+  document.getElementById("wizOverlay").hidden = false;
+  document.body.classList.add("wiz-open");
+  renderWizard();
+}
+function closeWizard(){
+  document.getElementById("wizOverlay").hidden = true;
+  document.body.classList.remove("wiz-open");
+}
+document.getElementById("wizClose").addEventListener("click", closeWizard);
+document.getElementById("wizOverlay").addEventListener("click", (e)=>{ if(e.target.id === "wizOverlay") closeWizard(); });
+document.addEventListener("keydown", e=>{
+  const overlay = document.getElementById("wizOverlay");
+  if(overlay.hidden) return;
+  if(e.key === "Escape") { closeWizard(); return; }
+  if(e.key === "Enter" && e.target.tagName !== "TEXTAREA"){
+    const n = document.getElementById("wizNext");
+    if(n && !n.disabled){ e.preventDefault(); n.click(); }
+  }
+});
+</script>
 
 </body>
 </html>
