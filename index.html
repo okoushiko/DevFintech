@@ -163,14 +163,26 @@ section{padding:clamp(56px,8vw,100px) 0}
 .numbered p{color:var(--muted);font-size:.95rem}
 .chapters-cta{margin-top:1.6rem}
 
-/* ---------- compound hacks banner ---------- */
-.hack{background:var(--blue);color:#fff}
-.hack-grid{display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,5vw,72px);align-items:start}
+/* ---------- compound hacks (exact dune/mountain SVG lifted from compoundhacks.org) ---------- */
+.hack{
+  position:relative;overflow:hidden;color:#2E2013;
+  background:#F4EDE0;
+}
+.hack-scene{position:absolute;left:-24px;right:-24px;bottom:0;height:clamp(220px,42%,420px);pointer-events:none;z-index:0}
+.hack-scene svg{display:block;width:100%;height:100%}
+.hack-sun{position:absolute;right:6vw;bottom:18%;width:min(180px,26vw);aspect-ratio:1;border-radius:50%;background:#EFC08A;z-index:0;pointer-events:none}
+@media(max-width:820px){.hack-sun{display:none}}
+.hack-grid{position:relative;z-index:1;display:grid;grid-template-columns:auto 1fr;gap:clamp(24px,5vw,72px);align-items:start;padding-bottom:clamp(140px,20vw,220px)}
 @media(max-width:820px){.hack-grid{grid-template-columns:1fr}}
-.hack-date{font-family:var(--display);font-weight:800;font-size:clamp(3.4rem,9vw,6rem);letter-spacing:-.04em;line-height:.9;margin:.3rem 0 1rem}
-.hack-when{font-size:1.2rem;font-weight:700;margin-bottom:1rem}
-.hack-meta{border-top:1px solid rgba(255,255,255,.28);padding-top:.7rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted-on-blue)}
-.hack h2{color:#fff;margin:1.2rem 0 1rem}
+.hack-date{font-family:var(--display);font-weight:800;font-size:clamp(3.4rem,9vw,6rem);letter-spacing:-.04em;line-height:.9;margin:.3rem 0 1rem;
+  background:linear-gradient(178deg,#241A12 12%,#5E3016 78%,#8C4522 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hack-when{font-size:1.2rem;font-weight:700;margin-bottom:1rem;color:#3B2A18}
+.hack-meta{border-top:1px solid rgba(46,32,19,.28);padding-top:.7rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:#6B4C2E}
+.hack h2{color:#2E2119;margin:1.2rem 0 1rem}
+.hack .eyebrow.on-desert{color:#8C4522}
+.hack .lede.on-desert{color:#6A5340}
+.hack-btn-desert{background:#8C4522;color:#FFF8EC;border-radius:999px;box-shadow:0 10px 24px -14px rgba(46,32,19,.45)}
+.hack-btn-desert:hover{background:#6E3418;transform:translateY(-2px)}
 
 /* ---------- practical support ---------- */
 .support-list{margin-top:1.6rem}
@@ -458,20 +470,65 @@ body.wiz-open{overflow:hidden}
     </div>
   </section>
 
-  <!-- COMPOUND HACKS -->
+  <!-- COMPOUND HACKS (exact desert SVG artwork lifted from compoundhacks.org) -->
   <section class="hack">
+    <div class="hack-sun" aria-hidden="true"></div>
+    <div class="hack-scene" aria-hidden="true">
+      <svg viewBox="0 0 1600 420" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" focusable="false">
+        <path d="M-20 420 L-20 250 L 70 186 L 132 224 L 210 150 L 300 232 L 366 196 L 452 254
+        L 540 214 L 628 262 L 720 232 L 812 268 L 900 240 L 1000 276 L 1090 246
+        L 1190 282 L 1290 250 L 1400 284 L 1500 256 L 1620 288 L 1620 420 Z"
+        fill="#DDC0A0"/>
+        <g fill="#CDAC88">
+        <path d="M210 150 L 300 232 L 254 250 L 210 150 Z"/>
+        <path d="M540 214 L 628 262 L 588 276 L 540 214 Z"/>
+        <path d="M900 240 L 1000 276 L 956 288 L 900 240 Z"/>
+        <path d="M1290 250 L 1400 284 L 1352 296 L 1290 250 Z"/>
+        </g>
+        <path d="M-20 420 L-20 300 L 96 244 L 176 286 L 268 226 L 372 296 L 452 262 L 556 312
+        L 660 274 L 764 320 L 872 288 L 980 326 L 1080 296 L 1200 334 L 1310 302
+        L 1430 338 L 1540 310 L 1620 330 L 1620 420 Z"
+        fill="#C9A87F"/>
+        <g fill="#B9946A">
+        <path d="M268 226 L 372 296 L 322 312 L 268 226 Z"/>
+        <path d="M660 274 L 764 320 L 718 334 L 660 274 Z"/>
+        <path d="M1080 296 L 1200 334 L 1150 348 L 1080 296 Z"/>
+        </g>
+        <path d="M120 420 C 310 412, 466 392, 594 356 C 668 334, 726 268, 816 262
+        C 906 268, 966 334, 1040 358 C 1168 400, 1306 414, 1430 420 Z" fill="#D2914F"/>
+        <path d="M816 262 C 906 268, 966 334, 1040 358 C 1168 400, 1306 414, 1430 420
+        L 900 420 C 884 356, 852 298, 816 262 Z" fill="#BC7B3C"/>
+        <path d="M-20 420 L-20 348 C 70 338, 150 306, 264 302 C 366 298, 452 332, 540 368
+        C 630 404, 700 416, 760 420 Z" fill="#CE8B47"/>
+        <path d="M264 302 C 366 298, 452 332, 540 368 C 630 404, 700 416, 760 420
+        L 430 420 C 404 386, 330 328, 264 302 Z" fill="#B4712F"/>
+        <path d="M900 420 C 1000 414, 1090 396, 1170 370 C 1230 350, 1272 330, 1320 328
+        C 1380 326, 1450 352, 1520 378 C 1570 396, 1600 412, 1620 420 Z" fill="#C4813F"/>
+        <path d="M1320 328 C 1380 326, 1450 352, 1520 378 C 1570 396, 1600 412, 1620 420
+        L 1390 420 C 1380 388, 1354 348, 1320 328 Z" fill="#A9682A"/>
+        <path d="M-20 420 L-20 396 C 110 392, 240 378, 380 366 C 500 356, 570 348, 660 350
+        C 780 352, 900 372, 1030 388 C 1180 406, 1400 414, 1620 412 L1620 420 Z"
+        fill="#A85F28"/>
+        <path d="M660 350 C 780 352, 900 372, 1030 388 C 1180 406, 1400 414, 1620 412 L1620 420
+        L 800 420 C 780 396, 720 364, 660 350 Z" fill="#8E4C1E"/>
+        <path d="M-20 420 L-20 412 C 140 410, 300 398, 470 396 C 640 394, 790 404, 950 410
+        C 1120 416, 1360 418, 1620 416 L1620 420 Z" fill="#7C4118"/>
+        <path d="M-20 420 L-20 418 C 200 418, 430 415, 660 416 C 940 417, 1300 419, 1620 418
+        L1620 420 Z" fill="#5E3016"/>
+      </svg>
+    </div>
     <div class="shell hack-grid">
       <div>
-        <span class="eyebrow on-blue">Compound Hacks / November 14, 2026</span>
+        <span class="eyebrow on-desert">Compound Hacks / November 14, 2026</span>
         <div class="hack-date">14.11</div>
         <div class="hack-when">2026 / Bay Area</div>
         <div class="hack-meta">08:00 – 20:00<br>One day. Something you built.</div>
       </div>
       <div>
         <h2>Meet. Build.<br>Make it compound.</h2>
-        <p class="lede on-blue" style="margin:1.2rem 0 1.6rem">Compound Hacks is a one-day, in-person hackathon for Bay Area high schoolers. Form a team, build something that touches money, and pitch it to the judges.</p>
-        <p class="lede on-blue" style="margin-bottom:1.8rem">Free entry. Food included. No experience needed.</p>
-        <a class="btn btn-white" href="https://compoundhacks.org" target="_blank" rel="noopener">Explore Compound Hacks
+        <p class="lede on-desert" style="margin:1.2rem 0 1.6rem">Compound Hacks is a one-day, in-person hackathon for Bay Area high schoolers. Form a team, build something that touches money, and pitch it to the judges.</p>
+        <p class="lede on-desert" style="margin-bottom:1.8rem">Free entry. Food included. No experience needed.</p>
+        <a class="btn hack-btn-desert" href="https://compoundhacks.org" target="_blank" rel="noopener">Explore Compound Hacks
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17 17 7M8 7h9v9"/></svg>
         </a>
       </div>
