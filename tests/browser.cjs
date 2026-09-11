@@ -50,6 +50,7 @@ const reports = [];
       const overflow = await page.evaluate(() =>
         [...document.querySelectorAll("main *,header *,footer *")]
           .filter((el) => {
+            if (el.closest('[aria-hidden="true"]')) return false;
             const rect = el.getBoundingClientRect();
             return (
               rect.width > 0 && (rect.right > innerWidth + 1 || rect.left < -1)
@@ -63,6 +64,12 @@ const reports = [];
       );
       assert.deepEqual(overflow, [], `${name}: horizontal overflow`);
       assert.equal(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth + 1,
+        ),
+        true,
+      );
+      assert.equal(
         await page
           .locator(".hero-photo img")
           .evaluate((img) => img.complete && img.naturalWidth > 0),
@@ -73,6 +80,14 @@ const reports = [];
         path: path.join(output, name + ".png"),
         fullPage: true,
       });
+      if (name === "desktop" || name === "mobile") {
+        await page
+          .locator("#compound-hacks")
+          .screenshot({
+            path: path.join(output, name + "-compound-hacks.png"),
+            animations: "disabled",
+          });
+      }
       if (width <= 960) {
         await page
           .getByRole("button", { name: "Open navigation", exact: true })
@@ -394,6 +409,7 @@ const reports = [];
     const enlargedOverflow = await page.evaluate(() =>
       [...document.querySelectorAll("main *,header *,footer *")]
         .filter((el) => {
+          if (el.closest('[aria-hidden="true"]')) return false;
           const r = el.getBoundingClientRect();
           return r.width > 0 && (r.right > innerWidth + 1 || r.left < -1);
         })

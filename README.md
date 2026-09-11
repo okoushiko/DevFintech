@@ -1,6 +1,6 @@
 # DevFintech
 
-The public website for DevFintech’s free, student-led financial literacy and fintech programs. The implementation follows the [Cobalt Figma design](https://www.figma.com/design/FA7TarleHc8eLqm52yMlmY/dev-fin-tech?node-id=72-3), retaining the existing chapter and class registration flows.
+The public website for DevFintech’s free, student-led financial literacy and fintech programs. The visual design follows the [Cobalt Figma design](https://www.figma.com/design/FA7TarleHc8eLqm52yMlmY/dev-fin-tech?node-id=72-3). Website content comes from this GitHub repository, including the existing chapter and class registration flows.
 
 ## Run locally
 
@@ -48,7 +48,8 @@ An existing newsletter form had no subscription service. It has been replaced by
 
 - DM Sans and IBM Plex Mono, warm paper, dark green, and cobalt are retained from Figma; lime is the highlight color.
 - `assets/learning.jpg` is the original photograph extracted byte-for-byte from the repository’s embedded JPEG. The same photo appears in Figma and was sourced from DevFintech’s existing Wix site. It is illustrative, not identified as a particular DevFintech student.
-- The nine course descriptions come from the existing `index_1.html` catalog.
+- Homepage content comes from the original `index.html`; the nine course descriptions come from the existing `index_1.html` catalog.
+- Compound Hacks retains the repository’s original event copy, date, location, destination link, and desert SVG artwork.
 - The existing event date, class schedules, participation figures, and contact details have been retained. Confirm them with the program organizers when publishing updates.
 
 Registration drafts stay in memory only while the page is open. Names and other form inputs are escaped before rendering; no personal data is saved to browser storage.
