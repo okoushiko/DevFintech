@@ -63,7 +63,7 @@ p{margin:0}
 .btn{
   display:inline-flex;align-items:center;gap:.5rem;
   font-family:var(--display);font-weight:700;font-size:.95rem;
-  padding:.85rem 1.4rem;border-radius:6px;border:1.5px solid transparent;
+  padding:.85rem 1.4rem;border-radius:0;border:1.5px solid transparent;
   cursor:pointer;transition:transform .18s ease,background .18s ease,border-color .18s ease;
 }
 .btn svg{width:14px;height:14px;flex:none}
@@ -88,7 +88,7 @@ header{
 nav.links{display:flex;gap:1.8rem;margin-left:auto}
 nav.links a{font-size:.92rem;font-weight:500;color:var(--ink)}
 nav.links a:hover{color:var(--blue)}
-.menu-btn{display:none;background:none;border:1.5px solid var(--line);border-radius:8px;width:40px;height:40px;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;cursor:pointer}
+.menu-btn{display:none;background:none;border:1.5px solid var(--line);border-radius:0;width:40px;height:40px;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;cursor:pointer}
 @media(max-width:880px){
   nav.links,.head-cta{display:none}
   .menu-btn{display:flex;margin-left:auto}
@@ -102,7 +102,7 @@ nav.links a:hover{color:var(--blue)}
 .hero .lede{margin-bottom:1.8rem}
 .hero-cta{display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:1.4rem}
 .hero-photo{
-  aspect-ratio:4/5;border-radius:16px;overflow:hidden;background:
+  aspect-ratio:4/5;border-radius:0;overflow:hidden;background:
     linear-gradient(160deg,var(--sky),var(--paper) 60%);
   border:1px solid var(--line);position:relative;
 }
@@ -146,7 +146,7 @@ section{padding:clamp(56px,8vw,100px) 0}
 .curriculum .cta{margin-top:2.6rem}
 
 /* ---------- mentors split ---------- */
-.mentor-box{background:var(--sky);border-radius:14px;padding:clamp(24px,3vw,34px)}
+.mentor-box{background:var(--sky);border-radius:0;padding:clamp(24px,3vw,34px)}
 .mentor-box h3{margin-bottom:1.2rem}
 .sched-row{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line);font-size:1.02rem}
 .sched-row:last-of-type{border-bottom:1px solid var(--line);margin-bottom:1.3rem}
@@ -229,14 +229,14 @@ footer{padding-top:clamp(48px,7vw,80px)}
   padding:24px 16px;backdrop-filter:blur(2px);
 }
 .wiz-overlay[hidden]{display:none}
-.wiz-shell{width:100%;max-width:620px;max-height:calc(100vh - 48px);overflow-y:auto;border-radius:16px}
+.wiz-shell{width:100%;max-width:620px;max-height:calc(100vh - 48px);overflow-y:auto;border-radius:0}
 .wiz-card{
-  background:#fff;border:1px solid var(--line);border-radius:16px;
+  background:#fff;border:1px solid var(--line);border-radius:0;
   padding:clamp(26px,4vw,40px) clamp(22px,4vw,40px) 30px;position:relative;
   box-shadow:0 40px 80px -32px rgba(25,35,31,.35);
 }
 .wiz-close{
-  position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:8px;
+  position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:0;
   border:1.5px solid var(--line);background:#fff;cursor:pointer;
   display:flex;align-items:center;justify-content:center;color:var(--ink);
   font-family:var(--display);font-size:1.2rem;line-height:1;
@@ -249,7 +249,7 @@ footer{padding-top:clamp(48px,7vw,80px)}
 .wiz-lede{color:var(--muted);font-size:1rem;margin-bottom:22px;max-width:46ch}
 .wiz-hint{color:var(--muted);font-size:.9rem;margin-bottom:20px;max-width:46ch}
 .wiz-facts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
-.wiz-fact{font-family:var(--mono);font-size:.72rem;padding:6px 11px;border:1px solid var(--line);border-radius:100px;color:var(--ink);background:var(--sky)}
+.wiz-fact{font-family:var(--mono);font-size:.72rem;padding:6px 11px;border:1px solid var(--line);border-radius:0;color:var(--ink);background:var(--sky)}
 .wiz-meter{display:flex;align-items:center;gap:14px;margin-bottom:26px}
 .wiz-curve-wrap{flex:1;min-width:0}
 .wiz-curve{display:block;width:100%;height:36px;overflow:visible}
@@ -258,7 +258,7 @@ footer{padding-top:clamp(48px,7vw,80px)}
 .wiz-curve-dot{fill:var(--blue);stroke:#fff;stroke-width:2.5;transition:transform .5s cubic-bezier(.22,.8,.3,1)}
 .wiz-step-count{font-family:var(--mono);font-size:.68rem;letter-spacing:.04em;color:var(--muted);white-space:nowrap}
 .wiz-opts{display:flex;flex-direction:column;gap:9px;margin-bottom:22px}
-.wiz-opt{display:block;width:100%;text-align:left;font-family:var(--display);font-size:.98rem;font-weight:700;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;cursor:pointer;transition:border-color .16s,background .16s,transform .16s}
+.wiz-opt{display:block;width:100%;text-align:left;font-family:var(--display);font-size:.98rem;font-weight:700;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:0;padding:14px 16px;cursor:pointer;transition:border-color .16s,background .16s,transform .16s}
 .wiz-opt:hover{border-color:var(--blue);transform:translateY(-1px)}
 .wiz-opt small{display:block;color:var(--muted);font-size:.82rem;font-weight:400;margin-top:3px}
 .wiz-opt[aria-pressed="true"]{border-color:var(--blue);background:var(--sky)}
@@ -274,7 +274,7 @@ footer{padding-top:clamp(48px,7vw,80px)}
 .wiz-field label .wiz-opt-tag{font-weight:400;color:var(--muted)}
 .wiz-field input[type=text],.wiz-field input[type=email],.wiz-field input[type=tel],.wiz-field select,.wiz-field textarea{
   width:100%;font-family:var(--display);font-size:1rem;color:var(--ink);
-  background:var(--paper);border:1.5px solid var(--line);border-radius:8px;padding:11px 13px;
+  background:var(--paper);border:1.5px solid var(--line);border-radius:0;padding:11px 13px;
   transition:border-color .16s,background .16s,box-shadow .16s;
 }
 .wiz-field textarea{resize:vertical;min-height:84px;line-height:1.45}
