@@ -1,0 +1,12 @@
+{
+  "name": "devfintech-website",
+  "private": true,
+  "scripts": {
+    "dev": "node dev-server.mjs",
+    "check": "node --check assets/app.js && node --check dev-server.mjs",
+    "test": "node tests/browser.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}
