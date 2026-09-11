@@ -634,14 +634,15 @@ body.wiz-open{overflow:hidden}
 /* =========================================================================
    Embedded join wizard — merges the chapter-request and class-signup forms
    directly into this page (no more linking out to club.html / class.html).
-   Both still notify the same two Discord webhooks and post to the same
-   two Google Apps Script endpoints as before.
+
+   SECURITY: the site never talks to Discord or Google Apps Script directly
+   anymore. Both submissions go to one Cloudflare Worker endpoint, which
+   holds the real webhook/endpoint URLs as server-side secrets and fans the
+   request out from there. See worker/README.md for how to deploy the
+   Worker; paste its URL below once it's live.
    ========================================================================= */
 
-const WIZ_DISCORD_CHAPTER  = "https://discord.com/api/webhooks/1547307051003281429/7ySLLiwrwUvzgGtgsxefwAkU3SNlwlUzNg8eDYgb_pGhHCE0rO21L7uejK5siW8kEvgB";
-const WIZ_DISCORD_CLASS    = "https://discord.com/api/webhooks/1547307062164455535/AR6Pzw8x946xa16VY5yJlTfpIrfXx8mL7F890D9yGVnOjLG8DvxqCk8sP0rMozs87OEq";
-const WIZ_ENDPOINT_CHAPTER = "https://script.google.com/macros/s/AKfycbwUqIX8Vozgys0jgzWcNH-PfrLB3U7ZmeFz0d_oxm63D0kY6vWz8AR3KTFeWVgeUDPDIA/exec";
-const WIZ_ENDPOINT_CLASS   = "https://script.google.com/macros/s/AKfycbwKtXNbiBFW8d3QjMT8pNhtQmACy8ddlT0_ZiKN-0fWFw4-zygpWPdEa0iKlm5rkRSqiQ/exec";
+const WIZ_WORKER_BASE = "https://devfintech-forms.devfintech.workers.dev";
 
 let wizMode = null;   // null (chooser) | 'chapter' | 'class'
 let wizIdx  = 0;
@@ -1164,51 +1165,11 @@ function validateClass(step){
   return true;
 }
 
-/* ---------- Discord notifications (fire-and-forget) ---------- */
-function notifyDiscordChapter(payload){
-  const line = (label, value) => `**${label}:** ${value || "—"}`;
-  const group = payload.path === "chapter"
-    ? line("Founding team", payload.teamSize) + "\n" + line("Advisor", payload.advisor)
-    : line("Group", `${payload.clubName} · ${payload.clubSize}`) + "\n" + line("Meets", payload.meets);
-  const description = [
-    line("Request", payload.path === "chapter" ? "Start a new chapter" : "Teach an existing club or class"),
-    line("School", payload.schoolName),
-    line("Location", payload.location),
-    line("Role", payload.yourRole),
-    line("Students", payload.grades),
-    group,
-    line("Courses", payload.topics),
-    line("Format", `${payload.format} · ${payload.delivery}`),
-    line("Start", payload.start),
-    line("Name", `${payload.first} ${payload.last}`),
-    line("Email", payload.email),
-    line("Phone", payload.phone),
-    line("Message", payload.message)
-  ].join("\n");
-  fetch(WIZ_DISCORD_CHAPTER, {
-    method:"POST", headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({ embeds:[{ title:"🏫 New chapter / club request", color:0x244CE8, description, timestamp:new Date().toISOString() }] })
-  }).catch(()=>{});
-}
-function notifyDiscordClass(payload){
-  const line = (label, value) => `**${label}:** ${value || "—"}`;
-  const description = [
-    line("Student", `${payload.studentFirst} ${payload.studentLast}`),
-    line("Guardian", `${payload.guardianFirst} ${payload.guardianLast}`),
-    line("Guardian email", payload.guardianEmail),
-    line("Guardian phone", payload.guardianPhone),
-    line("Location", `${payload.country}, ${payload.state_}`),
-    line("Schedule", payload.schedule),
-    line("Heard about us", payload.heard),
-    line("Experience", payload.experience)
-  ].join("\n");
-  fetch(WIZ_DISCORD_CLASS, {
-    method:"POST", headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({ embeds:[{ title:"📚 New class signup", color:0x244CE8, description, timestamp:new Date().toISOString() }] })
-  }).catch(()=>{});
-}
-
-/* ---------- submit ---------- */
+/* ---------- submit ----------
+   Both forms POST to the Cloudflare Worker (WIZ_WORKER_BASE), never to
+   Discord or Apps Script directly. The Worker holds those real URLs as
+   server-side secrets and builds/sends the Discord embed itself — see
+   worker/README.md. */
 async function submitWizard(){
   const btn = document.getElementById("wizNext");
   btn.disabled = true;
@@ -1216,20 +1177,21 @@ async function submitWizard(){
   btn.textContent = "Sending…";
 
   try{
+    let payload, route;
     if(wizMode === "chapter"){
-      const payload = { ...chapterState, topics: chapterState.topics.join(", "), source:"devfintech-chapter-request", submittedAt:new Date().toISOString() };
-      notifyDiscordChapter(payload);
-      const res = await fetch(WIZ_ENDPOINT_CHAPTER, { method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(payload) });
-      if(!res.ok) throw new Error(res.status);
+      payload = { ...chapterState, topics: chapterState.topics.join(", "), source:"devfintech-chapter-request", submittedAt:new Date().toISOString() };
+      route = "chapter";
     } else {
       const scheduleFinal = classState.schedule === "other"
         ? "Other: " + classState.other
         : (() => { const m = WIZ_SCHEDULE.find(s => s[0] === classState.schedule); return m ? `${m[1]} ${m[2]}` : ""; })();
-      const payload = { ...classState, schedule: scheduleFinal, source:"devfintech-class-registration", submittedAt:new Date().toISOString() };
-      notifyDiscordClass(payload);
-      const res = await fetch(WIZ_ENDPOINT_CLASS, { method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(payload) });
-      if(!res.ok) throw new Error(res.status);
+      payload = { ...classState, schedule: scheduleFinal, source:"devfintech-class-registration", submittedAt:new Date().toISOString() };
+      route = "class";
     }
+    const res = await fetch(`${WIZ_WORKER_BASE}/${route}`, {
+      method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(payload)
+    });
+    if(!res.ok) throw new Error(res.status);
     wizDone = true;
     renderWizard();
   }catch(err){
