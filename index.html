@@ -78,6 +78,46 @@ p{margin:0}
 .link.on-ink{color:var(--lime)}
 .link svg{width:12px;height:12px}
 
+/* ---------- subtle motion ---------- */
+@media (prefers-reduced-motion: no-preference){
+  [data-reveal]{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity .7s cubic-bezier(.22,.8,.3,1), transform .7s cubic-bezier(.22,.8,.3,1);
+    transition-delay:var(--reveal-delay,0s);
+  }
+  [data-reveal].is-visible{opacity:1;transform:none}
+
+  @keyframes heroUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .hero .eyebrow{opacity:0;animation:heroUp .75s cubic-bezier(.19,1,.22,1) both .05s}
+  .hero h1{opacity:0;animation:heroUp .75s cubic-bezier(.19,1,.22,1) both .12s}
+  .hero .lede{opacity:0;animation:heroUp .75s cubic-bezier(.19,1,.22,1) both .22s}
+  .hero-cta{opacity:0;animation:heroUp .75s cubic-bezier(.19,1,.22,1) both .32s}
+  .hero .fine{opacity:0;animation:heroUp .75s cubic-bezier(.19,1,.22,1) both .4s}
+  @keyframes heroPhoto{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
+  .hero-photo{opacity:0;animation:heroPhoto .9s cubic-bezier(.19,1,.22,1) both .18s}
+
+  .btn,.link,.menu-btn{transition:transform .18s ease,background-color .18s ease,border-color .18s ease,color .18s ease}
+  .wiz-opt{transition:border-color .16s ease,background-color .16s ease,transform .16s ease}
+}
+
+/* nav underline sweep (always on — not motion-heavy enough to gate on reduced-motion) */
+nav.links a{position:relative}
+nav.links a::after{
+  content:"";position:absolute;left:0;right:100%;bottom:-4px;height:1.5px;background:var(--blue);
+  transition:right .25s cubic-bezier(.22,.8,.3,1);
+}
+nav.links a:hover::after{right:0}
+
+/* wizard open/close fade + rise */
+.wiz-overlay{opacity:0;transition:opacity .2s ease}
+.wiz-overlay.wiz-in{opacity:1}
+.wiz-card{transform:translateY(12px) scale(.98);opacity:0;transition:transform .28s cubic-bezier(.22,.8,.3,1),opacity .28s ease}
+.wiz-overlay.wiz-in .wiz-card{transform:none;opacity:1}
+@media (prefers-reduced-motion: reduce){
+  .wiz-overlay,.wiz-card{transition:none}
+}
+
 /* ---------- header ---------- */
 header{
   position:sticky;top:0;z-index:50;background:rgba(248,247,241,.9);
@@ -351,21 +391,21 @@ body.wiz-open{overflow:hidden}
   <!-- STAT LEDGER -->
   <div class="ledger">
     <div class="shell ledger-grid">
-      <div><div class="n">1,500+</div><div class="l">Students reached</div></div>
-      <div><div class="n">60+</div><div class="l">Chapters worldwide</div></div>
-      <div><div class="n">$0</div><div class="l">Cost to attend</div></div>
-      <div><div class="n">California</div><div class="l">Secretary of state recognized</div></div>
+      <div data-reveal style="--reveal-delay:0s"><div class="n">1,500+</div><div class="l">Students reached</div></div>
+      <div data-reveal style="--reveal-delay:.08s"><div class="n">60+</div><div class="l">Chapters worldwide</div></div>
+      <div data-reveal style="--reveal-delay:.16s"><div class="n">$0</div><div class="l">Cost to attend</div></div>
+      <div data-reveal style="--reveal-delay:.24s"><div class="n">California</div><div class="l">Secretary of state recognized</div></div>
     </div>
   </div>
 
   <!-- WHY WE EXIST -->
   <section id="about">
     <div class="shell split">
-      <div>
+      <div data-reveal>
         <span class="eyebrow section-num">01 / Why we exist</span>
         <h2>You learn to solve for x.<br>What about your first paycheck?</h2>
       </div>
-      <div>
+      <div data-reveal style="--reveal-delay:.1s">
         <p class="lede" style="margin-bottom:1.2rem">Most students leave school without learning how credit works, why they overspend, or what a bank does with their money. DevFintech is a nonprofit closing that gap with free classes taught by people their own age.</p>
         <p class="lede" style="margin-bottom:1.4rem">We connect finance, the psychology behind our choices, and the technology changing both. All funds go toward electronics for students who cannot afford them, giving every learner the tools to succeed.</p>
         <a class="link" href="mailto:thedevfintech@gmail.com">Meet DevFintech
@@ -379,29 +419,29 @@ body.wiz-open{overflow:hidden}
   <section class="curriculum" id="curriculum">
     <div class="shell">
       <div class="top">
-        <div>
+        <div data-reveal>
           <span class="eyebrow on-ink section-num">02 / The curriculum</span>
           <h2>Life skills.<br>Not just lessons.</h2>
         </div>
-        <div class="meta">
+        <div class="meta" data-reveal style="--reveal-delay:.1s">
           <div style="font-weight:700">3 tracks / 9 courses</div>
           <p>Same core material. Every chapter.<br>Slide decks, lesson plans and activities included.</p>
         </div>
       </div>
       <div class="courses">
-        <div class="course">
+        <div class="course" data-reveal style="--reveal-delay:0s">
           <span class="eyebrow on-ink" style="font-size:.66rem">01 / Behavioral insights</span>
           <h3>Think clearly.</h3>
           <p>Spot loss aversion, anchoring and impulse spending in your own decisions. Understand why a budget fails when it ignores the person following it.</p>
           <div class="tags">Behavioral Finance &nbsp;·&nbsp; Debt</div>
         </div>
-        <div class="course">
+        <div class="course" data-reveal style="--reveal-delay:.1s">
           <span class="eyebrow on-ink" style="font-size:.66rem">02 / Finance</span>
           <h3>Make it add up.</h3>
           <p>Learn personal finance, how banks make money, and how investing works. Read your own bank statement and a company's balance sheet.</p>
           <div class="tags">Personal Finance &nbsp;·&nbsp; Banking &nbsp;·&nbsp; Investing<br>Loans &nbsp;·&nbsp; Economics (ages 11+)</div>
         </div>
-        <div class="course">
+        <div class="course" data-reveal style="--reveal-delay:.2s">
           <span class="eyebrow on-ink" style="font-size:.66rem">03 / Coding basics</span>
           <h3>Build something.</h3>
           <p>Start Python and HTML from zero. Explore crypto, blockchain and online financial safety, then put your skills to work in projects, workshops and hackathons.</p>
@@ -419,12 +459,12 @@ body.wiz-open{overflow:hidden}
   <!-- MENTORS -->
   <section>
     <div class="shell split">
-      <div>
+      <div data-reveal>
         <span class="eyebrow section-num">Learn with us / Trained student mentors</span>
         <h2>Someone who remembers being in your shoes.</h2>
         <p class="lede" style="margin-top:1.2rem">Our educators are high school volunteers, selected for their academic background, communication skills, leadership and understanding of financial literacy. Every mentor is trained to make complex ideas approachable for younger students. The result: supportive, interactive learning with a high standard of instruction.</p>
       </div>
-      <div class="mentor-box">
+      <div class="mentor-box" data-reveal style="--reveal-delay:.1s">
         <h3>A free class.<br>A useful hour.</h3>
         <span class="eyebrow" style="display:block;margin-bottom:1rem">Weekly sessions / PST</span>
         <div class="sched-row"><span>Monday</span><span>4:30–5:30</span></div>
@@ -441,7 +481,7 @@ body.wiz-open{overflow:hidden}
   <!-- CHAPTERS -->
   <section>
     <div class="shell split">
-      <div>
+      <div data-reveal>
         <span class="eyebrow section-num">03 / Built by students</span>
         <h2>Your school.<br>Your chapter.</h2>
         <p class="lede" style="margin-top:1.2rem">A chapter is a club at your school, led by you, using our material. We run 60+ of them—and make it simple to start the next one.</p>
@@ -457,9 +497,9 @@ body.wiz-open{overflow:hidden}
       </div>
       <div>
         <ul class="numbered">
-          <li><span class="idx">01</span><div><h4>Apply to lead a chapter</h4><p>Tell us your school and why you want to teach. We review applications on a rolling basis and reply within about a week.</p></div></li>
-          <li><span class="idx">02</span><div><h4>Get the kit. Get ready.</h4><p>Slide decks, lesson plans and activities for all nine courses, plus a training call before your first meeting.</p></div></li>
-          <li><span class="idx">03</span><div><h4>Make the club your own.</h4><p>You set the schedule and teach your members. We stay on call, share what works across chapters, and bring your students into national events.</p></div></li>
+          <li data-reveal style="--reveal-delay:0s"><span class="idx">01</span><div><h4>Apply to lead a chapter</h4><p>Tell us your school and why you want to teach. We review applications on a rolling basis and reply within about a week.</p></div></li>
+          <li data-reveal style="--reveal-delay:.08s"><span class="idx">02</span><div><h4>Get the kit. Get ready.</h4><p>Slide decks, lesson plans and activities for all nine courses, plus a training call before your first meeting.</p></div></li>
+          <li data-reveal style="--reveal-delay:.16s"><span class="idx">03</span><div><h4>Make the club your own.</h4><p>You set the schedule and teach your members. We stay on call, share what works across chapters, and bring your students into national events.</p></div></li>
         </ul>
         <div class="chapters-cta">
           <a class="link" href="javascript:void(0)" onclick="openWizard('chapter')">Explore the chapter program
@@ -538,22 +578,22 @@ body.wiz-open{overflow:hidden}
   <!-- PRACTICAL SUPPORT -->
   <section>
     <div class="shell split">
-      <div>
+      <div data-reveal>
         <h2>Build habits<br>that stay with you.</h2>
       </div>
-      <div>
+      <div data-reveal style="--reveal-delay:.1s">
         <span class="eyebrow">Practical support</span>
         <p class="lede" style="margin-top:.8rem">Understand your financial habits, create a savings strategy, and build a budget that takes your behavior into account.</p>
         <div class="support-list">
-          <div class="support-item">
+          <div class="support-item" data-reveal style="--reveal-delay:0s">
             <h4>Financial Habits Assessment</h4>
             <p>Identify how psychological tendencies affect spending, saving and investing, and find practical areas for improvement.</p>
           </div>
-          <div class="support-item">
+          <div class="support-item" data-reveal style="--reveal-delay:.08s">
             <h4>Savings Plan Development</h4>
             <p>Develop a personalized savings strategy around your financial goals and behavioral patterns, with systems that support consistent habits.</p>
           </div>
-          <div class="support-item">
+          <div class="support-item" data-reveal style="--reveal-delay:.16s">
             <h4>Budgeting Framework Setup</h4>
             <p>Create a practical budgeting framework that accounts for behavioral hurdles and helps you manage money with greater clarity.</p>
           </div>
@@ -568,11 +608,11 @@ body.wiz-open{overflow:hidden}
   <!-- COME BE PART OF IT -->
   <section class="involve">
     <div class="shell split">
-      <div>
+      <div data-reveal>
         <span class="eyebrow section-num">04 / Come be part of it</span>
         <h2>There's a place<br>for you here.</h2>
       </div>
-      <div>
+      <div data-reveal style="--reveal-delay:.1s">
         <p class="lede">Join a free class. Lead a chapter. Mentor students or sponsor a program. However you want to contribute, we'll help you find the right place.</p>
         <div class="involve-cta">
           <a class="btn btn-primary" href="javascript:void(0)" onclick="openWizard(null)">Get involved
@@ -1269,13 +1309,17 @@ function openWizard(mode){
   wizMode = mode || null;
   wizIdx  = 0;
   wizDone = false;
-  document.getElementById("wizOverlay").hidden = false;
+  const overlay = document.getElementById("wizOverlay");
+  overlay.hidden = false;
   document.body.classList.add("wiz-open");
+  requestAnimationFrame(()=> requestAnimationFrame(()=> overlay.classList.add("wiz-in")));
   renderWizard();
 }
 function closeWizard(){
-  document.getElementById("wizOverlay").hidden = true;
+  const overlay = document.getElementById("wizOverlay");
+  overlay.classList.remove("wiz-in");
   document.body.classList.remove("wiz-open");
+  setTimeout(()=>{ overlay.hidden = true; }, 200);
 }
 document.getElementById("wizClose").addEventListener("click", closeWizard);
 document.getElementById("wizOverlay").addEventListener("click", (e)=>{ if(e.target.id === "wizOverlay") closeWizard(); });
@@ -1288,6 +1332,56 @@ document.addEventListener("keydown", e=>{
     if(n && !n.disabled){ e.preventDefault(); n.click(); }
   }
 });
+
+/* ---------- reveal-on-scroll for [data-reveal] elements ---------- */
+(function(){
+  const els = document.querySelectorAll("[data-reveal]");
+  if(!els.length) return;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduce){ els.forEach(el=>el.classList.add("is-visible")); return; }
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("is-visible");
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold:.15, rootMargin:"0px 0px -40px 0px" });
+  els.forEach(el=>io.observe(el));
+})();
+
+/* ---------- gentle count-up for the stat ledger ---------- */
+(function(){
+  const nums = document.querySelectorAll(".ledger .n");
+  if(!nums.length) return;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduce) return;
+  const parse = (text) => {
+    const m = text.match(/[\d,]+/);
+    if(!m) return null;
+    return { target: parseInt(m[0].replace(/,/g,""),10), prefix: text.slice(0, m.index), suffix: text.slice(m.index + m[0].length) };
+  };
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting) return;
+      io.unobserve(entry.target);
+      const el = entry.target;
+      const info = parse(el.textContent.trim());
+      if(!info){ return; } // non-numeric values (e.g. "California") just stay put
+      const dur = 900;
+      const start = performance.now();
+      function tick(now){
+        const p = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = Math.round(info.target * eased);
+        el.textContent = info.prefix + val.toLocaleString() + info.suffix;
+        if(p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }, { threshold:.6 });
+  nums.forEach(el=>io.observe(el));
+})();
 </script>
 
 </body>
